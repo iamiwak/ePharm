@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace ePharm
 {
-    public partial class MainWindow : Window
+    public partial class Main : Window
     {
-        public MainWindow()
+        public Main()
         {
             InitializeComponent();
         }

@@ -41,9 +41,14 @@ namespace ePharm.Windows
                 return;
             }
 
+            
+
             // Проверка почты
 
             // Регистрация пользователя в базе
+
+            new Main().Show();
+            Close();
         }
 
         private void OnControlGotFocused(object sender, RoutedEventArgs e)
@@ -51,7 +56,7 @@ namespace ePharm.Windows
             // Проверка почты
 
             (sender as Control).BorderThickness = new Thickness(0);
-        } 
+        }
 
         private void OnControlLostFocus(object sender, RoutedEventArgs e)
         {

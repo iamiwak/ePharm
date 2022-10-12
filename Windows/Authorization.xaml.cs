@@ -49,6 +49,9 @@ namespace ePharm.Windows
             }
 
             // Авторизация пользователя в базе
+
+            new Main().Show();
+            Close();
         }
     }
 }
