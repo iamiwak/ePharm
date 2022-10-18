@@ -5,8 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ePharm"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="900" Height="616"
+        WindowStyle="None"
+        WindowStartupLocation ="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="192"/>
+            <ColumnDefinition Width="708"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Background="Gray" Grid.ColumnSpan="2" MouseDown="MoveWindow">
+            <Image Source="/Images/close_icon.png" Width="12" Height="12" Margin="8,0" VerticalAlignment="Center" DockPanel.Dock="Right" MouseLeftButtonDown="CloseWindow"/>
+            <Image Source="/Images/collapse_icon.png" Width="12" Height="12" VerticalAlignment="Center" HorizontalAlignment="Right" MouseLeftButtonDown="CollapseWindow"/>
+        </DockPanel>
+
+        <StackPanel Background="{StaticResource ElementColor}" Grid.Row="1">
+            <StackPanel Height="600">
+                <Image Source="/Images/logo.png" Width="48" Height="48" Margin="0,16,0,0"/>
+                <TextBlock Text="ePharm" FontSize="24" Foreground="{StaticResource DarkGreen}" HorizontalAlignment="Center"/>
+
+                <Image Source="/Images/logo.png" Width="96" Height="96" Margin="0,36,0,0" x:Name="UserAvatar"/>
+                <TextBlock Text="Имя" HorizontalAlignment="Center" Margin="0,16,0,0" FontSize="18" x:Name="UserName"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Баланс: " FontSize="18"/>
+                    <TextBlock Text="0.0" HorizontalAlignment="Center" FontSize="18" x:Name="UserBalance"/>
+                    <TextBlock Text=" ₽" FontSize="18"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,72,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="/Images/home_icon.png" Width="20" Height="20" x:Name="HomeIcon"/>
+                    <TextBlock Text="Главная"  FontSize="18" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,26,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="/Images/cart_icon.png" Width="20" Height="20" x:Name="CartIcon"
+                           Style="{StaticResource ImageOpacity25}"/>
+                    <TextBlock Text="Корзина"  FontSize="18" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <TextBlock Text="Выход" FontSize="18" HorizontalAlignment="Center" Margin="0,122,0,0" MouseLeftButtonDown="LogOut"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Background="{StaticResource PrimaryColor}" Grid.Column="1" Grid.Row="1">
+            <!--Search Bar-->
+            
+            <!--Slider (popular)-->
+            
+            <!--Random drugs-->
+        </StackPanel>
     </Grid>
 </Window>

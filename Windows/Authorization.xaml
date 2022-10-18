@@ -21,10 +21,14 @@
             <TextBlock Text="Пароль" Margin="16,16,0,0"
                        Foreground="{StaticResource Gray}"/>
             <DockPanel>
-                <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
+                <StackPanel>
+                    <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
                      Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
-                <PasswordBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Visible" x:Name="PasswordBox"
+                    <PasswordBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Visible" x:Name="PasswordBox"
                              Style="{StaticResource PassStandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                    <Image DockPanel.Dock="Bottom" Source="/Images/eye.png" Width="16" Height="16" HorizontalAlignment="Right" Margin="0,-32,8,0"
+                           MouseEnter="ChangePasswordState" MouseLeave="ChangePasswordState" x:Name="PasswordHint" />
+                </StackPanel>
             </DockPanel>
 
             <Button Width="128" Height="24" BorderThickness="0" Margin="0,16,0,0" x:Name="LoginButton"

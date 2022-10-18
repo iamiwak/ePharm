@@ -11,14 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ePharm.Base;
 
 namespace ePharm.Windows
 {
     public partial class Authorization : Window
     {
+        private ePharmEntities _db;
+
         public Authorization()
         {
             InitializeComponent();
+            try
+            {
+                _db = SourceCore.DataBase;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Не удалось подключиться к базе данных из-за непредвиденной ошибки.\n\nОшибка: {e.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+            }
         }
 
         private void GoToRegistration(object sender, MouseButtonEventArgs e)
@@ -39,7 +51,7 @@ namespace ePharm.Windows
 
         private void OnUserAuthorized(object sender, RoutedEventArgs e)
         {
-            string login = MailBox.Text, pass = PasswordTextBox.Text;
+            string login = MailBox.Text, pass = PasswordBox.Password;
 
             if (string.IsNullOrWhiteSpace(login) ||
                 string.IsNullOrWhiteSpace(pass))
@@ -48,10 +60,24 @@ namespace ePharm.Windows
                 return;
             }
 
-            // Авторизация пользователя в базе
+            if (_db.users.SingleOrDefault(u => u.mail == login && u.password == pass) != null)
+            {
+                new Main().Show();
+                Close();
+            }
+            else MessageBox.Show("Логин или пароль введён неверно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
 
-            new Main().Show();
-            Close();
+        private void ChangePasswordState(object sender, MouseEventArgs e)
+        {
+            string password = PasswordBox.Password;
+            Visibility visibility = PasswordBox.Visibility;
+
+            PasswordBox.Password = PasswordTextBox.Text;
+            PasswordBox.Visibility = PasswordTextBox.Visibility;
+
+            PasswordTextBox.Text = password;
+            PasswordTextBox.Visibility = visibility;
         }
     }
 }

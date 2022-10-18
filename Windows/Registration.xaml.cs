@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using ePharm.Base;
 
 namespace ePharm.Windows
 {
     public partial class Registration : Window
     {
+        private ePharmEntities _db;
+
         public Registration()
         {
             InitializeComponent();
+            _db = SourceCore.DataBase;
         }
 
         private void GoToAuthorization(object sender, MouseButtonEventArgs e)
@@ -29,7 +27,7 @@ namespace ePharm.Windows
 
         private void OnRegisterUser(object sender, RoutedEventArgs e)
         {
-            string name = NameBox.Text, family = FamilyBox.Text, login = MailBox.Text, pass = PasswordBox.Password, requiredPass = RequirePasswordBox.Password;
+            string name = NameBox.Text, family = FamilyBox.Text, login = MailBox.Text, pass = PasswordBox.Password, requiredPass = ConfirmPasswordBox.Password;
 
             if (string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(family) ||
@@ -41,14 +39,48 @@ namespace ePharm.Windows
                 return;
             }
 
-            
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#~!%*?&])[A-Za-z\d@$!%#~*?&]{8,}$";
 
-            // Проверка почты
+            if (_db.users.SingleOrDefault(u => u.mail == login) != null)
+            {
+                MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            // Регистрация пользователя в базе
+            if (!Regex.IsMatch(pass, passwordPattern))
+            {
+                MessageBox.Show(
+                    "Пароль должен состоять минимум из 8 символов, а также содержать заглавные и строчные буквы латинского алфавита, цифры и специальные знаки.",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            new Main().Show();
-            Close();
+            if (!pass.Equals(requiredPass))
+            {
+                MessageBox.Show("Пароли не совпадают.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            users user = new users
+            {
+                mail = login,
+                password = pass,
+                name = name,
+                family = family
+            };
+
+            _db.users.Add(user);
+            try
+            {
+                _db.SaveChanges();
+                new Main().Show();
+                Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show($"Произошла ошибка!\n\n{err.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
 
         private void OnControlGotFocused(object sender, RoutedEventArgs e)
@@ -70,14 +102,30 @@ namespace ePharm.Windows
 
         private void ChangePasswordState(object sender, MouseEventArgs e)
         {
-            string password = PasswordBox.Password;
-            Visibility visibility = PasswordBox.Visibility;
+            PasswordBox passwordBox;
+            TextBox passwordTextBox;
 
-            PasswordBox.Password = PasswordTextBox.Text;
-            PasswordBox.Visibility = PasswordTextBox.Visibility;
+            string hintName = (sender as FrameworkElement).Name;
 
-            PasswordTextBox.Text = password;
-            PasswordTextBox.Visibility = visibility;
+            if (hintName == "RegistrationPasswordHint")
+            {
+                passwordBox = PasswordBox;
+                passwordTextBox = PasswordTextBox;
+            }
+            else
+            {
+                passwordBox = ConfirmPasswordBox;
+                passwordTextBox = ConfirmPasswordTextBox;
+            }
+
+            string password = passwordBox.Password;
+            Visibility visibility = passwordBox.Visibility;
+
+            passwordBox.Password = passwordTextBox.Text;
+            passwordBox.Visibility = passwordTextBox.Visibility;
+
+            passwordTextBox.Text = password;
+            passwordTextBox.Visibility = visibility;
         }
     }
 }
