@@ -16,7 +16,7 @@
             <TextBlock Text="Почта" Margin="16,0,0,0"
                        Foreground="{StaticResource Gray}"/>
             <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="MailBox"
-                     Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                     Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus" KeyDown="OnUserAttemptedAuthorize"/>
 
             <TextBlock Text="Пароль" Margin="16,16,0,0"
                        Foreground="{StaticResource Gray}"/>
@@ -25,14 +25,14 @@
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
                      Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
                     <PasswordBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Visible" x:Name="PasswordBox"
-                             Style="{StaticResource PassStandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                             Style="{StaticResource PassStandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus" KeyDown="OnUserAttemptedAuthorize"/>
                     <Image DockPanel.Dock="Bottom" Source="/Images/eye.png" Width="16" Height="16" HorizontalAlignment="Right" Margin="0,-32,8,0"
                            MouseEnter="ChangePasswordState" MouseLeave="ChangePasswordState" x:Name="PasswordHint" />
                 </StackPanel>
             </DockPanel>
 
             <Button Width="128" Height="24" BorderThickness="0" Margin="0,16,0,0" x:Name="LoginButton"
-                    Background="{StaticResource LightGreen}" Click="OnUserAuthorized">
+                    Background="{StaticResource LightGreen}" Click="OnUserAttemptedAuthorize">
                 <TextBlock Text="Войти" />
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

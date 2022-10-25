@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ePharm"
+        xmlns:control="clr-namespace:ePharm"
         mc:Ignorable="d"
         Title="MainWindow" Width="900" Height="616"
         WindowStyle="None"
@@ -53,11 +53,39 @@
         </StackPanel>
 
         <StackPanel Background="{StaticResource PrimaryColor}" Grid.Column="1" Grid.Row="1">
-            <!--Search Bar-->
-            
+            <StackPanel Margin="64,24">
+                <TextBox Height="48" FontSize="18" VerticalContentAlignment="Center" Style="{StaticResource SearchBar}"
+                         TextChanged="MakeSearch" LostFocus="AddHintText" GotFocus="HideHintText" x:Name="SearchBarTextBox"/>
+                <Image Source="/Images/search_icon.png" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,-48,24,0"/>
+                <TextBlock Margin="24,-36,0,0" Text="Энергоферон..." FontSize="18" Foreground="{StaticResource Gray}" Visibility="Visible"
+                           HorizontalAlignment="Left" Width="auto" IsHitTestVisible="False"
+                           x:Name="SearchHintTextBlock"/>
+            </StackPanel>
+
             <!--Slider (popular)-->
-            
+            <Rectangle Height="244" Margin="0,0,0,8"/>
+
             <!--Random drugs-->
+            <StackPanel Margin="24,0,24,24">
+                <TextBlock Text="Сегодня покупают" FontSize="20" Margin="0,0,0,9"/>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="OnMouseWheel">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Height="192" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="control:DrugSquare">
+                                <Setter Property="Margin" Value="0,0,16,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                        <control:DrugSquare/>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

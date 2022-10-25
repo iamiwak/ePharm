@@ -26,6 +26,23 @@ namespace ePharm.Windows
             }
         }
 
+        private void AuthorizeUser(string login, string pass)
+        {
+            if (string.IsNullOrWhiteSpace(login) ||
+                string.IsNullOrWhiteSpace(pass))
+            {
+                MessageBox.Show("Вам нужно заполнить все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (_db.users.SingleOrDefault(u => u.mail == login && u.password == pass) != null)
+            {
+                new Main().Show();
+                Close();
+            }
+            else MessageBox.Show("Логин или пароль введён неверно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        
         private void GoToRegistration(object sender, MouseButtonEventArgs e)
         {
             new Registration().Show();
@@ -42,24 +59,7 @@ namespace ePharm.Windows
             (sender as Control).BorderBrush = FindResource("Red") as Brush;
         }
 
-        private void OnUserAuthorized(object sender, RoutedEventArgs e)
-        {
-            string login = MailBox.Text, pass = PasswordBox.Password;
-
-            if (string.IsNullOrWhiteSpace(login) ||
-                string.IsNullOrWhiteSpace(pass))
-            {
-                MessageBox.Show("Вам нужно заполнить все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (_db.users.SingleOrDefault(u => u.mail == login && u.password == pass) != null)
-            {
-                new Main().Show();
-                Close();
-            }
-            else MessageBox.Show("Логин или пароль введён неверно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        private void OnUserAttemptedAuthorize(object sender, RoutedEventArgs e) => AuthorizeUser(MailBox.Text, PasswordBox.Password);
 
         private void ChangePasswordState(object sender, MouseEventArgs e)
         {
@@ -71,6 +71,12 @@ namespace ePharm.Windows
 
             PasswordTextBox.Text = password;
             PasswordTextBox.Visibility = visibility;
+        }
+
+        private void OnUserAttemptedAuthorize(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            AuthorizeUser(MailBox.Text, PasswordBox.Password);
         }
     }
 }
