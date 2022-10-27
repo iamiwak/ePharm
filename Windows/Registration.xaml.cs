@@ -73,7 +73,7 @@ namespace ePharm.Windows
             try
             {
                 _db.SaveChanges();
-                new Main().Show();
+                new Main(user).Show();
                 Close();
             }
             catch (Exception err)

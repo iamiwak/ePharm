@@ -189,6 +189,8 @@
       <DependentUpon>DataBase.edmx</DependentUpon>
       <LastGenOutput>DataBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\avatar_ex.png" />
+    <Resource Include="Images\admin_icon.png" />
     <Resource Include="Images\search_icon.png" />
     <Resource Include="Images\close_icon.png" />
     <Resource Include="Images\collapse_icon.png" />

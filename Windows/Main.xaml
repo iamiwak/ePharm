@@ -29,26 +29,39 @@
                 <Image Source="/Images/logo.png" Width="48" Height="48" Margin="0,16,0,0"/>
                 <TextBlock Text="ePharm" FontSize="24" Foreground="{StaticResource DarkGreen}" HorizontalAlignment="Center"/>
 
-                <Image Source="/Images/logo.png" Width="96" Height="96" Margin="0,36,0,0" x:Name="UserAvatar"/>
-                <TextBlock Text="Имя" HorizontalAlignment="Center" Margin="0,16,0,0" FontSize="18" x:Name="UserName"/>
+                <Ellipse Width="96" Height="96" Margin="0,36,0,0" x:Name="UserAvatar">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Images/avatar_ex.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                    <TextBlock Text="Максим" FontSize="18" x:Name="UserName"/>
+                    <TextBlock Text=" [A]" FontSize="18" Foreground="{StaticResource Red}" Visibility="Collapsed" x:Name="UserAdminTextBlock"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="Баланс: " FontSize="18"/>
                     <TextBlock Text="0.0" HorizontalAlignment="Center" FontSize="18" x:Name="UserBalance"/>
                     <TextBlock Text=" ₽" FontSize="18"/>
                 </StackPanel>
 
-                <StackPanel Margin="0,72,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Margin="24,72,20,0" Orientation="Horizontal">
                     <Image Source="/Images/home_icon.png" Width="20" Height="20" x:Name="HomeIcon"/>
-                    <TextBlock Text="Главная"  FontSize="18" Margin="20,0,0,0"/>
+                    <TextBlock Text="Главная"  FontSize="18" Margin="20,0,0,0" Padding="0,4"/>
                 </StackPanel>
 
-                <StackPanel Margin="0,26,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Margin="24,16,20,0" Orientation="Horizontal">
                     <Image Source="/Images/cart_icon.png" Width="20" Height="20" x:Name="CartIcon"
                            Style="{StaticResource ImageOpacity25}"/>
-                    <TextBlock Text="Корзина"  FontSize="18" Margin="20,0,0,0"/>
+                    <TextBlock Text="Корзина"  FontSize="18" Margin="20,0,0,0" Padding="0,4"/>
                 </StackPanel>
 
-                <TextBlock Text="Выход" FontSize="18" HorizontalAlignment="Center" Margin="0,122,0,0" MouseLeftButtonDown="LogOut"/>
+                <StackPanel Margin="24,16,20,0" Orientation="Horizontal" Visibility="Collapsed" x:Name="AdminStackPanel">
+                    <Image Source="/Images/admin_icon.png" Width="20" Height="20" x:Name="AdminIcon"
+                           Style="{StaticResource ImageOpacity25}"/>
+                    <TextBlock Text="Админка"  FontSize="18" Margin="20,0,0,0" Padding="0,4"/>
+                </StackPanel>
+
+                <TextBlock Text="Выход" FontSize="18" HorizontalAlignment="Center" Margin="0,108,0,0" MouseLeftButtonDown="LogOut" x:Name="LogOutTextBlock"/>
             </StackPanel>
         </StackPanel>
 
@@ -62,11 +75,30 @@
                            x:Name="SearchHintTextBlock"/>
             </StackPanel>
 
-            <!--Slider (popular)-->
-            <Rectangle Height="244" Margin="0,0,0,8"/>
+            <StackPanel x:Name="MainStackPanel">
+                <!--Slider (popular)-->
+                <StackPanel Margin="234,0">
+                    <TextBlock Text="Случайная подборка" HorizontalAlignment="Center" FontSize="20"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+                        <control:DrugSquare Panel.ZIndex="1" Margin="24,0"/>
+                        <control:DrugSquare Panel.ZIndex="0" Margin="-320,0,0,0" Opacity="0.5" Width="160" Height="160" Visibility="Collapsed"/>
+                        <control:DrugSquare Panel.ZIndex="0" Margin="-160,0,0,0" Opacity="0.5" Width="160" Height="160"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center">
+                        <StackPanel.Resources>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Margin" Value="0,0,8,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource LightGreen}"/>
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource LightGreen}" Opacity="0.25"/>
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource LightGreen}" Opacity="0.25"/>
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource LightGreen}" Opacity="0.25"/>
+                    </StackPanel>
+                </StackPanel>
 
-            <!--Random drugs-->
-            <StackPanel Margin="24,0,24,24">
+                <!--Random drugs-->
+                <StackPanel Margin="24,8,24,24">
                 <TextBlock Text="Сегодня покупают" FontSize="20" Margin="0,0,0,9"/>
 
                 <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="OnMouseWheel">
@@ -76,15 +108,16 @@
                                 <Setter Property="Margin" Value="0,0,16,0"/>
                             </Style>
                         </StackPanel.Resources>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
-                        <control:DrugSquare/>
+                        <control:DrugSquare DrugType="Тип #1"/>
+                        <control:DrugSquare DrugName="Препарат #2" DrugType="Тип #2"/>
+                        <control:DrugSquare DrugName="Препарат #3" DrugType="Тип #2"/>
+                        <control:DrugSquare DrugName="Препарат #4" DrugType="Тип #1"/>
+                        <control:DrugSquare DrugName="Препарат #5" DrugType="Тип #1"/>
+                        <control:DrugSquare DrugName="Препарат #6" DrugType="Тип #3"/>
+                        <control:DrugSquare DrugName="Препарат #7" DrugType="Тип #4"/>
                     </StackPanel>
                 </ScrollViewer>
+            </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

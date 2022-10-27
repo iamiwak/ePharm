@@ -2,14 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ePharm"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="192" d:DesignWidth="192">
+             d:DesignHeight="192" d:DesignWidth="192" SizeChanged="OnSizeChanged">
     <Grid>
-        <Border Width="192" Height="192"  CornerRadius="32" Background="{StaticResource ElementColor}"/>
-        <Ellipse Width="96" Height="96" Fill="Purple" VerticalAlignment="Top" Margin="0,16" x:Name="DrugImage"/>
-        <StackPanel VerticalAlignment="Bottom" Margin="0,16">
+        <Border Width="192" Height="192"  CornerRadius="32" Background="{StaticResource ElementColor}" x:Name="DrugBorder"/>
+        <Ellipse Width="96" Height="96" Fill="Purple" VerticalAlignment="Top" Margin="0,16,0,0" x:Name="DrugImage"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,16" x:Name="DrugStackPanel">
             <TextBlock Text="Название препарата" x:Name="DrugNameTextBox" HorizontalAlignment="Center" FontSize="18"/>
             <TextBlock Text="Тип препарата" x:Name="DrugTypeTextBox" HorizontalAlignment="Center" FontSize="14"/>
         </StackPanel>
