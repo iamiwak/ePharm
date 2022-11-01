@@ -7,17 +7,20 @@
     
     <Application.Resources>
         <Brush x:Key="Black">#000</Brush>
-        <Brush x:Key="PrimaryColor">#DFF9FB</Brush>
-        <Brush x:Key="Gray">#95AFC0</Brush>
-        <Brush x:Key="ElementColor">#C7ECEE</Brush>
+        <Brush x:Key="Background">#DFF9FB</Brush>
+        <Brush x:Key="Element">#C7ECEE</Brush>
+        
+        <Brush x:Key="DarkGray">#95AFC0</Brush>
+
         <Brush x:Key="LightGreen">#BADC58</Brush>
-        <Brush x:Key="Red">#EB4D4B</Brush>
         <Brush x:Key="DarkGreen">#6AB04C</Brush>
+        
+        <Brush x:Key="Red">#EB4D4B</Brush>
 
         <Style x:Key="StandartTextBox" TargetType="{x:Type Control}">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="16,0,16,0"/>
-            <Setter Property="Background" Value="{StaticResource ElementColor}"/>
+            <Setter Property="Background" Value="{StaticResource Element}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Control}">
@@ -62,14 +65,6 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="12"/>
-        </Style>
-
-        <Style x:Key="ImageOpacity25" TargetType="{x:Type Image}">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.25"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Application.Resources>
 </Application>

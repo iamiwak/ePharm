@@ -8,18 +8,18 @@
         Title="Авторизация" Width="450" Height="325"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Grid Background="{StaticResource PrimaryColor}">
+    <Grid Background="{StaticResource Background}">
         <StackPanel HorizontalAlignment="Center">
             <Image Source="/Images/logo.png" Width="48" Height="48" VerticalAlignment="Top" Margin="0,8,0,0"/>
             <TextBlock Text="ePharm" Foreground="#6AB04C" FontSize="24" HorizontalAlignment="Center"/>
 
             <TextBlock Text="Почта" Margin="16,0,0,0"
-                       Foreground="{StaticResource Gray}"/>
+                       Foreground="{StaticResource DarkGray}"/>
             <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="MailBox"
                      Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus" KeyDown="OnUserAttemptedAuthorize"/>
 
             <TextBlock Text="Пароль" Margin="16,16,0,0"
-                       Foreground="{StaticResource Gray}"/>
+                       Foreground="{StaticResource DarkGray}"/>
             <DockPanel>
                 <StackPanel>
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
@@ -61,7 +61,7 @@
                 </Button.Resources>
             </Button>
 
-            <TextBlock Text="Регистрация" Foreground="{StaticResource Gray}" HorizontalAlignment="Center" Margin="0,8,0,0" MouseLeftButtonDown="GoToRegistration"/>
+            <TextBlock Text="Регистрация" Foreground="{StaticResource DarkGray}" HorizontalAlignment="Center" Margin="0,8,0,0" MouseLeftButtonDown="GoToRegistration"/>
         </StackPanel>
     </Grid>
 </Window>

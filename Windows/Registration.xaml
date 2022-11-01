@@ -8,7 +8,7 @@
         Title="Регистрация" Width="450" Height="527"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Grid Background="{StaticResource PrimaryColor}">
+    <Grid Background="{StaticResource Background}">
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
                 <Image Source="/Images/logo.png" Width="48" Height="48" VerticalAlignment="Top" Margin="0,8,0,0"/>

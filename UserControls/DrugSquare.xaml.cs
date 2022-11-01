@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ePharm
+namespace ePharm.UserControls
 {
     public partial class DrugSquare : UserControl
     {
@@ -31,7 +31,7 @@ namespace ePharm
 
         private static void OnDrugNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugNameChanged(e);
 
-        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e) => DrugNameTextBox.Text = e.NewValue.ToString();
+        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e) => DrugNameTextBlock.Text = e.NewValue.ToString();
 
         public string DrugType
         {
@@ -44,7 +44,7 @@ namespace ePharm
 
         private static void OnDrugTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugTypeChanged(e);
 
-        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e) => DrugTypeTextBox.Text = e.NewValue.ToString();
+        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e) => DrugTypeTextBlock.Text = e.NewValue.ToString();
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -56,8 +56,8 @@ namespace ePharm
             DrugBorder.Height = 160;
             DrugImage.Width = 80;
             DrugImage.Height = 80;
-            DrugNameTextBox.FontSize = 14;
-            DrugTypeTextBox.FontSize = 12;
+            DrugNameTextBlock.FontSize = 14;
+            DrugTypeTextBlock.FontSize = 12;
         }
     }
 }

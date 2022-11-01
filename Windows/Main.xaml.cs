@@ -4,11 +4,13 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using ePharm.Base;
 using System.Diagnostics;
+using ePharm.Pages;
 
 namespace ePharm
 {
     public partial class Main : Window
     {
+        private string _currentPageName = "HomeStackPanel";
         private ePharmEntities _db;
         private users _user;
 
@@ -38,6 +40,8 @@ namespace ePharm
             UserAdminTextBlock.Visibility = _user.isAdmin ? Visibility.Visible : Visibility.Collapsed;
             AdminStackPanel.Visibility = _user.isAdmin ? Visibility.Visible : Visibility.Collapsed;
             LogOutTextBlock.Margin = new Thickness(0, _user.isAdmin ? 60 : 108, 0, 0);
+
+            PagePlace.Content = new MainPage();
         }
 
         private void CloseWindow(object sender, MouseButtonEventArgs e) => Close();
@@ -49,31 +53,42 @@ namespace ePharm
             if (e.LeftButton == MouseButtonState.Pressed) DragMove();
         }
 
-        private void MakeSearch(object sender, TextChangedEventArgs e)
-        {
-            string text = (sender as TextBox).Text;
-            MainStackPanel.Visibility = Visibility.Visible;
-            if (text.Length < 3) return;
-
-            Debug.WriteLine(text);
-            MainStackPanel.Visibility = Visibility.Collapsed;
-            // Make search...
-        }
-
-        private void HideHintText(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = Visibility.Collapsed;
-
-        private void AddHintText(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = Visibility.Visible;
-
-        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var scv = sender as ScrollViewer;
-            scv.ScrollToHorizontalOffset(scv.HorizontalOffset - e.Delta);
-        }
-
         private void LogOut(object sender, MouseButtonEventArgs e)
         {
             new Authorization().Show();
             Close();
+        }
+
+        private void ChangePage(object sender, MouseButtonEventArgs e)
+        {
+            string name = (sender as StackPanel).Name;
+            if (name == _currentPageName) return;
+
+            _currentPageName = name;
+            switch (name)
+            {
+                case "HomeStackPanel":
+                    HomeIcon.Opacity = 1;
+                    CartIcon.Opacity = 0.25;
+                    AdminIcon.Opacity = 0.25;
+                    PagePlace.Content = new MainPage();
+                    break;
+                case "CartStackPanel":
+                    HomeIcon.Opacity = 0.25;
+                    CartIcon.Opacity = 1;
+                    AdminIcon.Opacity = 0.25;
+                    PagePlace.Content = new CartPage();
+                    break;
+                case "AdminStackPanel":
+                    HomeIcon.Opacity = 0.25;
+                    CartIcon.Opacity = 0.25;
+                    AdminIcon.Opacity = 1;
+                    PagePlace.Content = new AdminPage();
+                    break;
+                default:
+                    MessageBox.Show("Куда Вы нажали то хоть?", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
         }
     }
 }
