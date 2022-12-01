@@ -14,7 +14,8 @@
 
         <Brush x:Key="LightGreen">#BADC58</Brush>
         <Brush x:Key="DarkGreen">#6AB04C</Brush>
-        
+
+        <Brush x:Key="Orange">#F6E58D</Brush>
         <Brush x:Key="Red">#EB4D4B</Brush>
 
         <Style x:Key="StandartTextBox" TargetType="{x:Type Control}">
@@ -65,6 +66,36 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style x:Key="CornerBackground" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="16"/>
+                </Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <!-- TODO: Сделай цвет при наводке, ща не работает почему-то...
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#000" TargetName="Border" />
+                                    </Trigger>
+
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="#BADC58" TargetName="Border" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>-->
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
         </Style>
     </Application.Resources>
 </Application>

@@ -31,34 +31,10 @@
                 </StackPanel>
             </DockPanel>
 
-            <Button Width="128" Height="24" BorderThickness="0" Margin="0,16,0,0" x:Name="LoginButton"
-                    Background="{StaticResource LightGreen}" Click="OnUserAttemptedAuthorize">
+            <Button Width="128" Height="24" Margin="0,16,0,0" 
+                    Background="{StaticResource LightGreen}" Style="{StaticResource CornerBackground}"
+                    x:Name="LoginButton" Click="OnUserAttemptedAuthorize">
                 <TextBlock Text="Войти" />
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="16"/>
-                    </Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#cbe582" TargetName="Border" />
-                                        </Trigger>
-
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter Property="Background" Value="#BADC58" TargetName="Border" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Resources>
             </Button>
 
             <TextBlock Text="Регистрация" Foreground="{StaticResource DarkGray}" HorizontalAlignment="Center" Margin="0,8,0,0" MouseLeftButtonDown="GoToRegistration"/>

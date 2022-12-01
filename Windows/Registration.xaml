@@ -16,25 +16,25 @@
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Имя" Foreground="{StaticResource Gray}" Margin="16,0,0,0"/>
+                <TextBlock Text="Имя" Foreground="{StaticResource DarkGray}" Margin="16,0,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="NameBox"
                      Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Фамилия" Foreground="{StaticResource Gray}" Margin="16,16,0,0"/>
+                <TextBlock Text="Фамилия" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="FamilyBox"
                      Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Почта" Foreground="{StaticResource Gray}" Margin="16,16,0,0"/>
+                <TextBlock Text="Почта" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="MailBox"
                      Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Пароль" Foreground="{StaticResource Gray}" Margin="16,16,0,0"/>
+                <TextBlock Text="Пароль" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <StackPanel Orientation="Vertical">
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
                      Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
@@ -46,7 +46,7 @@
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Подтверждение пароля" Foreground="{StaticResource Gray}" Margin="16,16,0,0"/>
+                <TextBlock Text="Подтверждение пароля" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <StackPanel HorizontalAlignment="Center">
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="ConfirmPasswordTextBox"
                      Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
@@ -58,35 +58,12 @@
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                <Button Width="128" Height="24" Background="{StaticResource LightGreen}" Margin="0,16,0,0" x:Name="LoginButton" Click="OnRegisterUser">
-                    <TextBlock Text="Регистрация" />
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="16"/>
-                        </Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#cbe582" TargetName="Border" />
-                                            </Trigger>
-
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter Property="Background" Value="#BADC58" TargetName="Border" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Resources>
+                <Button Width="128" Height="24" Margin="0,16,0,0"
+                        Style="{StaticResource CornerBackground}" Background="{StaticResource LightGreen}"
+                        x:Name="LoginButton" Click="OnRegisterUser">
+                    <TextBlock Text="Регистрация"/>
                 </Button>
-                <TextBlock Text="Назад" Foreground="{StaticResource Gray}" HorizontalAlignment="Center" Margin="0,8,0,0" MouseLeftButtonDown="GoToAuthorization" />
+                <TextBlock Text="Назад" Foreground="{StaticResource DarkGray}" HorizontalAlignment="Center" Margin="0,8,0,0" MouseLeftButtonDown="GoToAuthorization" />
             </StackPanel>
         </DockPanel>
     </Grid>

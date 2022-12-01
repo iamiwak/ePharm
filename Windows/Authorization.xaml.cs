@@ -29,9 +29,7 @@ namespace ePharm.Windows
 
         private void AuthorizeUser(string login, string pass)
         {
-            //new Main().Show();
-            //Close();
-
+            // TOOD: Добавить галочку <подключение без базы>
             if (string.IsNullOrWhiteSpace(login) ||
                 string.IsNullOrWhiteSpace(pass))
             {

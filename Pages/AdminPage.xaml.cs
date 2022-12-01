@@ -24,5 +24,15 @@ namespace ePharm.Pages
         {
             InitializeComponent();
         }
+
+        private void MoveToDrugsEditing(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MoveToUsersEditing(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Данная функция временно отключена!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 }

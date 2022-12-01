@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -198,7 +198,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="logo.ico" />
+    <Resource Include="Images\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo.png" />
@@ -217,6 +217,8 @@
       <DependentUpon>DataBase.edmx</DependentUpon>
       <LastGenOutput>DataBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\people_icon.png" />
+    <Resource Include="Images\drugs_icon.png" />
     <Resource Include="Images\left_arrow_icon.png" />
     <Resource Include="Images\right_arrow_icon.png" />
     <Resource Include="Images\avatar_ex.png" />

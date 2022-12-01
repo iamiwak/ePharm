@@ -7,6 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="708"
       Title="MainPage">
+    
+    <!--TODO:
+    1. Сделать поиск
+    2. Выборка товаров из базы
+    -->
+    
     <Grid Background="{StaticResource Background}">
         <StackPanel Background="{StaticResource Background}">
             <StackPanel Margin="64,24">

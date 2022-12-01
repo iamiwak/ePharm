@@ -20,7 +20,8 @@ namespace ePharm
             _db = SourceCore.DataBase;
             if (user == null)
             {
-                MessageBox.Show("Вы зашли не под пользователем!");
+                // TODO: Расскомменитровать, когда потребуется
+                //MessageBox.Show("Вы зашли не под пользователем!");
                 user = new users
                 {
                     id = 1000,

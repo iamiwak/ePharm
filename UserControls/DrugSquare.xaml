@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="192" d:DesignWidth="192" SizeChanged="OnSizeChanged">
+
+    <!--TODO:
+    Если название товара слишком длинное - добавить 3 точки, вместо последний 3 символов
+    -->
+
     <Grid>
         <Border Width="192" Height="192"  CornerRadius="32" Background="{StaticResource Element}" x:Name="DrugBorder"/>
         <Ellipse Width="96" Height="96" Fill="Purple" VerticalAlignment="Top" Margin="0,16,0,0" x:Name="DrugImage"/>

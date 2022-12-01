@@ -7,35 +7,53 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="708"
       Title="BucketPage">
+    
+    <!-- TODO:
+    1. Брать данные из базы
+    2. Сделать событие клика на кнопку оплаты
+    3. Считать сумму из суммы списка, если элементов нет, то 0
+    4. Добавить возможность управления количеством товара из этой страницы (добавить/удалить)
+    -->
 
     <Grid Background="{StaticResource Background}">
-        <StackPanel>
-            <TextBlock Text="Выбранный товар" HorizontalAlignment="Center" FontSize="24" Margin="0,24" Typography.Capitals="AllSmallCaps"/>
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="OnMouseWheel">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Выбранный товар" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,4" Typography.Capitals="AllSmallCaps"/>
+
+            <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Hidden" Height="430">
                 <StackPanel Width="384">
                     <StackPanel.Resources>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Margin" Value="0,0,0,20"/>
+                        <Style TargetType="controls:DrugGoods">
+                            <Setter Property="Margin" Value="0,20,0,0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <Rectangle Width="100" Height="200" Fill="Red"/>
-                    <Rectangle Width="100" Height="200" Fill="Red"/>
-                    <Rectangle Width="100" Height="200" Fill="Red"/>
-                    <Rectangle Width="100" Height="200" Fill="Red"/>
-                    <Rectangle Width="100" Height="200" Fill="Red"/>
-                    <!--<controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
+                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="169.99"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
-                    <controls:DrugGoods DrugName="Прикол6" DrugType="Тип #2" DrugPrice="289.99"/>-->
+                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="129.99"/>
+                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #2" DrugPrice="289.99"/>
                 </StackPanel>
             </ScrollViewer>
-            
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Сумма"/>
-                <Button Content="Оплатить"/>
+
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Border CornerRadius="16" Width="160" Height="42" Background="{StaticResource Orange}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock Text="Сумма: "/>
+                        <TextBlock Text="396.6" x:Name="PriceTextBlock"/>
+                        <TextBlock Text="₽"/>
+                    </StackPanel>
+                </Border>
+                <Button Width="160" Height="42" Margin="20,0,24,0" FontSize="24"
+                        Background="{StaticResource LightGreen}" Style="{StaticResource CornerBackground}">
+                    <TextBlock Text="Оплатить" FontSize="18"/>
+                </Button>
             </StackPanel>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </Page>

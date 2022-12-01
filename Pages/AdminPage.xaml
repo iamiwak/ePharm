@@ -8,7 +8,41 @@
       d:DesignHeight="600" d:DesignWidth="708"
       Title="AdminPage">
 
+    <!-- TODO: 
+    1. Сменить картинки (размеры подобрать под 128x128)
+    2. Добавить переход на страницу редактирования
+    -->
+    
     <Grid Background="{StaticResource Background}">
-        
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Администрирование" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,0" Typography.Capitals="AllSmallCaps"/>
+
+            <WrapPanel DockPanel.Dock="Top">
+                <WrapPanel.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="Width" Value="237"/>
+                        <Setter Property="Height" Value="237"/>
+                        <Setter Property="Margin" Value="78,24,0,0"/>
+                        <Setter Property="CornerRadius" Value="12"/>
+                        <Setter Property="Background" Value="{StaticResource Element}"/>
+                    </Style>
+                </WrapPanel.Resources>
+                <Border PreviewMouseDown="MoveToDrugsEditing">
+                    <StackPanel>
+                        <Image Source="/Images/drugs_icon.png" Width="128" Height="128" Margin="0,28" IsHitTestVisible="False"/>
+                        <TextBlock Text="Препараты" FontSize="24" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+                    </StackPanel>
+                </Border>
+
+                <Border PreviewMouseDown="MoveToUsersEditing">
+                    <StackPanel>
+                        <Image Source="/Images/people_icon.png" Width="128" Height="128" Margin="0,28" IsHitTestVisible="False"/>
+                        <TextBlock Text="Пользователи" FontSize="24" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </DockPanel>
     </Grid>
 </Page>
