@@ -58,7 +58,7 @@
                     <TextBlock Text="Сегодня покупают" FontSize="20" Margin="0,0,0,9"/>
 
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="OnMouseWheel">
-                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Height="192" Orientation="Horizontal">
+                        <StackPanel Height="192" Orientation="Horizontal">
                             <StackPanel.Resources>
                                 <Style TargetType="controls:DrugSquare">
                                     <Setter Property="Margin" Value="0,0,16,0"/>

@@ -1,0 +1,80 @@
+﻿<Page x:Class="ePharm.Pages.SingleDrugEditingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:ePharm.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="708"
+      Title="SingleDrugEditingPage">
+
+    <Grid Background="{StaticResource Background}">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Редактирование препарата" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,12" Typography.Capitals="AllSmallCaps"/>
+
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Setter Property="Margin" Value="0,12,0,0"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+
+                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}">
+                        <Setter Property="Width" Value="256"/>
+                        <Setter Property="Height" Value="32"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Название: "/>
+                    <TextBox x:Name="DrugName"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Стоимость: "/>
+                    <TextBox PreviewTextInput="AttemptToEditCost" x:Name="DrugCost"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Тип препарата: "/>
+                    <TextBox x:Name="DrugType"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Рецепт: "/>
+                    <TextBox x:Name="IsDrugNeedPrescription"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Картинка: "/>
+                    <TextBox x:Name="DrugImage"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,24">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CornerBackground}">
+                        <Setter Property="Width" Value="192"/>
+                        <Setter Property="Height" Value="32"/>
+                    </Style>
+
+                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Background="{StaticResource DarkGreen}" Margin="0,0,12,0" Click="ApplyChanges">
+                    <TextBlock Text="Подветрдить"/>
+                </Button>
+                <Button Background="{StaticResource DarkGray}" Margin="12,0,0,0" Click="CancelChanges">
+                    <TextBlock Text="Отменить"/>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Page>

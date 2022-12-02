@@ -100,6 +100,12 @@
     <Compile Include="Base\usersCart.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DrugsEditingPage.xaml.cs">
+      <DependentUpon>DrugsEditingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SingleDrugEditingPage.xaml.cs">
+      <DependentUpon>SingleDrugEditingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DrugGoods.xaml.cs">
       <DependentUpon>DrugGoods.xaml</DependentUpon>
     </Compile>
@@ -119,6 +125,14 @@
     <Compile Include="Windows\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
+    <Page Include="Pages\DrugsEditingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SingleDrugEditingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DrugGoods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

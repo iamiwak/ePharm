@@ -18,6 +18,8 @@ namespace ePharm.UserControls
 {
     public partial class DrugSquare : UserControl
     {
+        public int DrugId { get; set; }
+
         public DrugSquare() => InitializeComponent();
 
         public string DrugName
@@ -33,6 +35,7 @@ namespace ePharm.UserControls
 
         private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e) => DrugNameTextBlock.Text = e.NewValue.ToString();
 
+        //TODO: Сделать ID -> название типа
         public string DrugType
         {
             get { return (string)GetValue(DrugTypeProperty); }

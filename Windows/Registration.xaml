@@ -18,28 +18,28 @@
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
                 <TextBlock Text="Имя" Foreground="{StaticResource DarkGray}" Margin="16,0,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="NameBox"
-                     Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
+                         Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
                 <TextBlock Text="Фамилия" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="FamilyBox"
-                     Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                         Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
                 <TextBlock Text="Почта" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <TextBox Width="256" Height="32" Margin="0,2,0,0" x:Name="MailBox"
-                     Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                         Style="{StaticResource StandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
                 <TextBlock Text="Пароль" Foreground="{StaticResource DarkGray}" Margin="16,16,0,0"/>
                 <StackPanel Orientation="Vertical">
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="PasswordTextBox"
-                     Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
+                             Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
                     <PasswordBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Visible" x:Name="PasswordBox"
-                             Style="{StaticResource PassStandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                                 GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
                     <Image Source="/Images/eye.png" Width="16" Height="16" HorizontalAlignment="Right" Margin="0,-32,8,0"
                            MouseEnter="ChangePasswordState" MouseLeave="ChangePasswordState" x:Name="RegistrationPasswordHint"/>
                 </StackPanel>
@@ -51,7 +51,7 @@
                     <TextBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Collapsed" x:Name="ConfirmPasswordTextBox"
                      Style="{StaticResource StandartTextBox}" LostFocus="OnControlLostFocus" GotFocus="OnControlGotFocused"/>
                     <PasswordBox Width="256" Height="32" Margin="0,2,0,0" Visibility="Visible" x:Name="ConfirmPasswordBox"
-                             Style="{StaticResource PassStandartTextBox}" GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
+                                 GotFocus="OnControlGotFocused" LostFocus="OnControlLostFocus"/>
                     <Image Source="/Images/eye.png" Width="16" Height="16" HorizontalAlignment="Right" Margin="0,-32,8,0"
                            MouseLeave="ChangePasswordState" MouseEnter="ChangePasswordState" x:Name="RegistrationConfirmPasswordHint"/>
                 </StackPanel>

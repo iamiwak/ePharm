@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 
 namespace ePharm.Pages
 {
-    /// <summary>
-    /// Interaction logic for AdminPage.xaml
-    /// </summary>
     public partial class AdminPage : Page
     {
-        public AdminPage()
-        {
-            InitializeComponent();
-        }
+        public AdminPage() => InitializeComponent();
 
         private void MoveToDrugsEditing(object sender, MouseButtonEventArgs e)
         {
-
+            NavigationService.Navigate(new DrugsEditingPage());
         }
 
         private void MoveToUsersEditing(object sender, MouseButtonEventArgs e)
