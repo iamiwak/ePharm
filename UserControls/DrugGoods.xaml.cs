@@ -18,7 +18,12 @@ namespace ePharm.UserControls
 
         private static void OnDrugNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugGoods).OnDrugNameChanged(e);
 
-        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e) => DrugNameTextBlock.Text = e.NewValue.ToString();
+        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string newName = e.NewValue.ToString();
+            DrugNameTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
+        }
+
 
         public string DrugType
         {
@@ -31,7 +36,12 @@ namespace ePharm.UserControls
 
         private static void OnDrugTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugGoods).OnDrugTypeChanged(e);
 
-        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e) => DrugTypeTextBlock.Text = e.NewValue.ToString();
+        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string newName = e.NewValue.ToString();
+            DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
+        }
+
 
         public decimal DrugPrice
         {

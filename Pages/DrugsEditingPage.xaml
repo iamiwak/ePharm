@@ -10,20 +10,27 @@
 
     <Grid Background="{StaticResource Background}">
         <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Препараты" HorizontalAlignment="Center" FontSize="24" Margin="0,24" Typography.Capitals="AllSmallCaps"/>
-            
+            <Border DockPanel.Dock="Top" BorderBrush="{StaticResource DarkGray}" BorderThickness="0,0,0,2">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,32,0" PreviewMouseDown="AddNewDrugItem">
+                        <Ellipse Width="48" Height="48" Fill="{StaticResource DarkGreen}"/>
+                        <Image Source="/Images/plus_icon.png" Width="24" Height="24" Margin="0,-48,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Right" Text="Препараты" HorizontalAlignment="Center" FontSize="24" Margin="80,24,0,24" Typography.Capitals="AllSmallCaps"/>
+                </DockPanel>
+            </Border>
+
             <!--TODO:
-            1. Добавить добавление элемента
             2. Добавить удаление элемента
             3. Добавить поиск элемента
             -->
-            
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <WrapPanel DockPanel.Dock="Top" VerticalAlignment="Top" Orientation="Horizontal"
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,0,0,16">
+                <WrapPanel VerticalAlignment="Top" Orientation="Horizontal"
                            x:Name="DrugsCollection" PreviewMouseDown="OpenDrugEditing">
                     <WrapPanel.Resources>
                         <Style TargetType="{x:Type controls:DrugSquare}">
-                            <Setter Property="Margin" Value="33,0,0,16"/>
+                            <Setter Property="Margin" Value="33,16,0,0"/>
                         </Style>
                     </WrapPanel.Resources>
                 </WrapPanel>

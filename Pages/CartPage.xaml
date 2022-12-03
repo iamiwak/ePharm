@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="708"
       Title="BucketPage">
-    
+
     <!-- TODO:
     1. Брать данные из базы
     2. Сделать событие клика на кнопку оплаты
@@ -17,7 +17,9 @@
 
     <Grid Background="{StaticResource Background}">
         <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Выбранный товар" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,4" Typography.Capitals="AllSmallCaps"/>
+            <Border DockPanel.Dock="Top" BorderBrush="{StaticResource DarkGray}" BorderThickness="0,0,0,2">
+                <TextBlock Text="Выбранный товар" HorizontalAlignment="Center" FontSize="24" Margin="0,24" Typography.Capitals="AllSmallCaps"/>
+            </Border>
 
             <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Hidden" Height="430">
                 <StackPanel Width="384">

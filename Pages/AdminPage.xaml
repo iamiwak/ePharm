@@ -14,7 +14,9 @@
     
     <Grid Background="{StaticResource Background}">
         <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Администрирование" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,0" Typography.Capitals="AllSmallCaps"/>
+            <Border DockPanel.Dock="Top" BorderThickness="0,0,0,2" BorderBrush="{StaticResource DarkGray}">
+                <TextBlock Text="Администрирование" HorizontalAlignment="Center" FontSize="24" Margin="0,24" Typography.Capitals="AllSmallCaps"/>
+            </Border>
 
             <WrapPanel DockPanel.Dock="Top">
                 <WrapPanel.Resources>
