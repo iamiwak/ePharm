@@ -10,7 +10,16 @@
 
     <Grid Background="{StaticResource Background}">
         <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Редактирование препарата" HorizontalAlignment="Center" FontSize="24" Margin="0,24,0,12" Typography.Capitals="AllSmallCaps"/>
+            <Border DockPanel.Dock="Top" BorderBrush="{StaticResource DarkGray}" BorderThickness="0,0,0,2">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,32,0" PreviewMouseDown="DeleteItem" x:Name="DeleteItemButton">
+                        <Ellipse Fill="{StaticResource Red}" Width="48" Height="48"/>
+                        <Image Source="/Images/close_icon.png" Width="24" Height="24" Margin="0,-48,0,0"/>
+                    </StackPanel>
+                    
+                    <TextBlock DockPanel.Dock="Right"  Text="Редактирование препарата" HorizontalAlignment="Center" FontSize="24" Margin="80,24,0,24" Typography.Capitals="AllSmallCaps"/>
+                </DockPanel>
+            </Border>
 
             <StackPanel DockPanel.Dock="Top">
                 <StackPanel.Resources>
@@ -21,7 +30,8 @@
 
                     <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
                         <Setter Property="Width" Value="150"/>
-                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
                     </Style>
 
                     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}">
@@ -32,7 +42,7 @@
 
                 <StackPanel Orientation="Horizontal" >
                     <TextBlock Text="Название: "/>
-                    <TextBox x:Name="DrugName"/>
+                    <TextBox   KeyUp="TextBoxKeyUp" x:Name="DrugName"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -42,12 +52,12 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Тип препарата: "/>
-                    <TextBox x:Name="DrugType"/>
+                    <ComboBox Width="256" Height="32" DisplayMemberPath="name" Style="{StaticResource StandartComboBox}" x:Name="DrugType"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Рецепт: "/>
-                    <TextBox x:Name="IsDrugNeedPrescription"/>
+                    <CheckBox VerticalAlignment="Center" Background="{StaticResource Element}" BorderThickness="0" IsThreeState="False" x:Name="IsDrugNeedPrescription"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">

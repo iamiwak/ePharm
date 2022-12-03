@@ -33,9 +33,13 @@ namespace ePharm.UserControls
 
         private static void OnDrugNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugNameChanged(e);
 
-        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e) => DrugNameTextBlock.Text = e.NewValue.ToString();
+        private void OnDrugNameChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string newName = e.NewValue.ToString();
+            DrugNameTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
+        }
 
-        //TODO: Сделать ID -> название типа
+
         public string DrugType
         {
             get { return (string)GetValue(DrugTypeProperty); }
@@ -47,7 +51,30 @@ namespace ePharm.UserControls
 
         private static void OnDrugTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugTypeChanged(e);
 
-        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e) => DrugTypeTextBlock.Text = e.NewValue.ToString();
+        private void OnDrugTypeChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string newName = e.NewValue.ToString();
+            DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
+        }
+
+        public bool IsDrugNeedPrescription
+        {
+            get { return (bool)GetValue(IsDrugNeedPrescriptionProperty); }
+            set { SetValue(IsDrugNeedPrescriptionProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsDrugNeedPrescriptionProperty =
+            DependencyProperty.Register("IsDrugNeedPrescription", typeof(bool), typeof(DrugSquare), new PropertyMetadata(false, OnDrugNeededPrescriptionChanged));
+
+        private static void OnDrugNeededPrescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugNeededPrescriptionChanged(e);
+
+        private void OnDrugNeededPrescriptionChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string newName = e.NewValue.ToString();
+            DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
+
+            DrugPrescriptionEllipse.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
+        }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {

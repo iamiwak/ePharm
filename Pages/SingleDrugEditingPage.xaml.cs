@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Data.Entity.Migrations.Model;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Data.Entity;
 using ePharm.Base;
 
 namespace ePharm.Pages
@@ -30,22 +21,80 @@ namespace ePharm.Pages
             InitializeComponent();
             _drug = drug;
 
-            Debug.WriteLine($"ID - {drug.id}");
+            DeleteItemButton.Visibility = Visibility.Visible;
+            DrugType.ItemsSource = SourceCore.DataBase.drugTypes.ToList();
             UpdateData();
         }
 
         private void UpdateData()
         {
-            if (_drug == null) return;
+            if (_drug == null)
+            {
+                DeleteItemButton.Visibility = Visibility.Hidden;
+                return;
+            }
 
             DrugName.Text = _drug.name;
             DrugCost.Text = _drug.cost.ToString();
-            DrugType.Text = _drug.typeId.ToString();
-            IsDrugNeedPrescription.Text = _drug.isNeedPrescription.ToString();
+            DrugType.Text = _drug.drugTypes.name;
+            IsDrugNeedPrescription.IsChecked = _drug.isNeedPrescription;
             DrugImage.Text = _drug.image?.ToString();
         }
 
-        private void ApplyChanges(object sender, RoutedEventArgs e)
+        private void ApplyChanges(object sender, RoutedEventArgs e) => SaveData();
+
+        // TODO: проверять содержимое полей, если пусто - не показывать диалог
+        private void CancelChanges(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите отменить внесенные изменения?", "Отмена действия", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+
+            NavigationService.GoBack();
+        }
+
+        private void AttemptToEditCost(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = _numbersRegex.IsMatch(e.Text);
+        }
+
+        private void TextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+
+            e.Handled = true;
+            SaveData();
+        }
+
+        private void SaveData()
+        {
+            //TODO:
+            // 3. Изменить TextBox'ы на нужные объекты (image!)
+            if (!ValidateData()) return;
+
+            decimal.TryParse(DrugCost.Text, out decimal cost);
+
+            drugs drug = (_drug is null) ? new drugs() : SourceCore.DataBase.drugs.First(d => d.id == _drug.id);
+            drug.name = DrugName.Text;
+            drug.cost = cost;
+            drug.typeId = (DrugType.SelectedItem as drugTypes).id;
+            drug.drugTypes = DrugType.SelectedItem as drugTypes;
+            drug.isNeedPrescription = IsDrugNeedPrescription.IsChecked ?? false;
+
+            if (_drug is null) SourceCore.DataBase.drugs.Add(drug);
+            try { SourceCore.DataBase.SaveChanges(); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+            GoBack();
+        }
+
+        private void PageNavigated(object sender, NavigationEventArgs e)
+        {
+            DrugsEditingPage page = e.Content as DrugsEditingPage;
+            page.LoadDrugsCollection();
+            (sender as Frame).NavigationService.Navigated -= PageNavigated;
+        }
+
+        private bool ValidateData()
         {
             StringBuilder warnings = new StringBuilder();
             if (string.IsNullOrEmpty(DrugName.Text)) warnings.Append("Не указано название препарата;\n");
@@ -55,32 +104,31 @@ namespace ePharm.Pages
             if (warnings.Length != 0)
             {
                 MessageBox.Show($"Исправьте следующие недочеты:\n\n{warnings}", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return false;
             }
 
-            //TODO:
-            // 1. Доделать проверки на decimal.parse
-            // 2. Доделать базу
-            // 3. Изменить TextBox'ы на нужные объекты (checkbox, combobox, image!)
-            drugs drug = new drugs
-            {
-                name = DrugName.Text,
-                cost = decimal.Parse(DrugCost.Text),
-                typeId = int.Parse(DrugType.Text)
-            };
-            //if (_drug == null) SourceCore.DataBase.drugs.Add(drug);
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите сохранить изменения?", "Сохранение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return false;
 
-            //try { SourceCore.DataBase.SaveChanges(); }
-            //catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
-            MessageBox.Show($"Успешно сохранено:\n\nНазвание: {drug.name}\nСтоимость: {drug.cost}\nТип: {drug.typeId}", "Сохранено", MessageBoxButton.OK, MessageBoxImage.Warning);
-            NavigationService.GoBack();
+            return true;
         }
 
-        private void CancelChanges(object sender, RoutedEventArgs e) => NavigationService.GoBack();
-
-        private void AttemptToEditCost(object sender, TextCompositionEventArgs e)
+        private void DeleteItem(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = _numbersRegex.IsMatch(e.Text);
+            MessageBoxResult result = MessageBox.Show("Вы хотите удалить данный элемент? Данное действие невозможно отменить!", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes) return;
+
+            SourceCore.DataBase.drugs.Remove(_drug);
+            SourceCore.DataBase.Entry(_drug).State = EntityState.Deleted;
+            SourceCore.DataBase.SaveChanges();
+
+            GoBack();
+        }
+
+        private void GoBack()
+        {
+            NavigationService.Navigated += PageNavigated;
+            NavigationService.GoBack();
         }
     }
 }
