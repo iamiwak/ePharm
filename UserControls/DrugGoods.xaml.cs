@@ -1,11 +1,19 @@
-﻿using System.Windows;
+﻿using ePharm.Pages;
+using System.Data;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ePharm.UserControls
 {
     public partial class DrugGoods : UserControl
     {
+        public delegate void ClickHandler(DrugGoods sender);
+        public event ClickHandler OnClick;
+
         public DrugGoods() => InitializeComponent();
+
+        public int DrugId { get; set; }
 
         public string DrugName
         {

@@ -15,7 +15,7 @@ namespace ePharm.Pages
         public DrugsEditingPage()
         {
             InitializeComponent();
-            LoadDrugsCollection();
+            //LoadDrugsCollection();
         }
 
         public void LoadDrugsCollection()

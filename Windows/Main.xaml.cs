@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 using ePharm.Base;
-using System.Diagnostics;
 using ePharm.Pages;
 
 namespace ePharm
@@ -11,13 +10,10 @@ namespace ePharm
     public partial class Main : Window
     {
         private string _currentPageName = "HomeStackPanel";
-        private ePharmEntities _db;
-        private users _user;
 
         public Main(users user = null)
         {
             InitializeComponent();
-            _db = SourceCore.DataBase;
             if (user == null)
             {
                 // TODO: Расскомменитровать, когда потребуется
@@ -34,13 +30,14 @@ namespace ePharm
                 };
             }
 
-            _user = user;
-            UserName.Text = _user.name;
-            UserBalance.Text = _user.balance.ToString();
+            User.SetUserData(user);
 
-            UserAdminTextBlock.Visibility = _user.isAdmin ? Visibility.Visible : Visibility.Collapsed;
-            AdminStackPanel.Visibility = _user.isAdmin ? Visibility.Visible : Visibility.Collapsed;
-            LogOutTextBlock.Margin = new Thickness(0, _user.isAdmin ? 60 : 108, 0, 0);
+            UserName.Text = User.Name;
+            UserBalance.Text = User.Balance.ToString();
+
+            UserAdminTextBlock.Visibility = User.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            AdminStackPanel.Visibility = User.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            LogOutTextBlock.Margin = new Thickness(0, User.IsAdmin ? 60 : 108, 0, 0);
 
             PagePlace.Content = new MainPage();
         }

@@ -22,13 +22,13 @@
             </Border>
 
             <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Hidden" Height="430">
-                <StackPanel Width="384">
+                <StackPanel Width="384" x:Name="DrugsCartCollection">
                     <StackPanel.Resources>
                         <Style TargetType="controls:DrugGoods">
                             <Setter Property="Margin" Value="0,20,0,0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="169.99"/>
+                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="169.99" x:Name="NewDrugGood"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
                     <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
@@ -52,7 +52,8 @@
                     </StackPanel>
                 </Border>
                 <Button Width="160" Height="42" Margin="20,0,24,0" FontSize="24"
-                        Background="{StaticResource LightGreen}" Style="{StaticResource CornerBackground}">
+                        Background="{StaticResource LightGreen}" Style="{StaticResource CornerBackground}"
+                        Click="PayCart">
                     <TextBlock Text="Оплатить" FontSize="18"/>
                 </Button>
             </StackPanel>

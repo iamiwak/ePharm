@@ -11,14 +11,7 @@
     <Grid Background="{StaticResource Background}">
         <DockPanel>
             <Border DockPanel.Dock="Top" BorderBrush="{StaticResource DarkGray}" BorderThickness="0,0,0,2">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,32,0" PreviewMouseDown="DeleteItem" x:Name="DeleteItemButton">
-                        <Ellipse Fill="{StaticResource Red}" Width="48" Height="48"/>
-                        <Image Source="/Images/close_icon.png" Width="24" Height="24" Margin="0,-48,0,0"/>
-                    </StackPanel>
-                    
-                    <TextBlock DockPanel.Dock="Right"  Text="Редактирование препарата" HorizontalAlignment="Center" FontSize="24" Margin="80,24,0,24" Typography.Capitals="AllSmallCaps"/>
-                </DockPanel>
+                <TextBlock DockPanel.Dock="Right"  Text="Редактирование препарата" HorizontalAlignment="Center" FontSize="24" Margin="0,24" Typography.Capitals="AllSmallCaps"/>
             </Border>
 
             <StackPanel DockPanel.Dock="Top">
@@ -81,6 +74,11 @@
                 <Button Background="{StaticResource DarkGreen}" Margin="0,0,12,0" Click="ApplyChanges">
                     <TextBlock Text="Подветрдить"/>
                 </Button>
+
+                <Button Background="{StaticResource Red}" Margin="12,0" Visibility="Visible" Click="DeleteItem"  x:Name="DeleteItemButton">
+                    <TextBlock Text="Удалить"/>
+                </Button>
+
                 <Button Background="{StaticResource DarkGray}" Margin="12,0,0,0" Click="CancelChanges">
                     <TextBlock Text="Отменить"/>
                 </Button>

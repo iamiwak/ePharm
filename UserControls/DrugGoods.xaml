@@ -16,7 +16,10 @@
             </Border>
 
             <StackPanel Margin="16,0,0,0">
-                <TextBlock Text="Название препарата" FontSize="20" Margin="0,8,0,32" x:Name="DrugNameTextBlock"/>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,32">
+                    <TextBlock Text="Название препарата" FontSize="20" x:Name="DrugNameTextBlock"/>
+                    <Image Source="/Images/red_danger_icon.png" Margin="8,4,0,0" Width="16" Height="16" Visibility="Hidden" x:Name="DrugGoodsPrescriptionSign"/>
+                </StackPanel>
                 <TextBlock Text="Тип препарата" FontSize="16" x:Name="DrugTypeTextBlock"/>
             </StackPanel>
         </StackPanel>

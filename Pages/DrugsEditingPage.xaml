@@ -22,7 +22,6 @@
             </Border>
 
             <!--TODO:
-            2. Добавить удаление элемента
             3. Добавить поиск элемента
             -->
             <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,0,0,16">

@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ePharm.UserControls
 {
     public partial class DrugSquare : UserControl
     {
-        public int DrugId { get; set; }
+        public delegate void ClickHandler(DrugGoods sender);
+        public event ClickHandler OnClick;
 
         public DrugSquare() => InitializeComponent();
+
+        public int DrugId { get; set; }
 
         public string DrugName
         {
@@ -73,7 +64,7 @@ namespace ePharm.UserControls
             string newName = e.NewValue.ToString();
             DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
 
-            DrugPrescriptionEllipse.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
+            DrugSquarePrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)

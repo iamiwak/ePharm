@@ -30,7 +30,7 @@ namespace ePharm.Pages
         {
             if (_drug == null)
             {
-                DeleteItemButton.Visibility = Visibility.Hidden;
+                DeleteItemButton.Visibility = Visibility.Collapsed;
                 return;
             }
 
@@ -42,6 +42,18 @@ namespace ePharm.Pages
         }
 
         private void ApplyChanges(object sender, RoutedEventArgs e) => SaveData();
+
+        private void DeleteItem(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Вы хотите удалить данный элемент? Данное действие невозможно отменить!", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes) return;
+
+            SourceCore.DataBase.drugs.Remove(_drug);
+            SourceCore.DataBase.Entry(_drug).State = EntityState.Deleted;
+            SourceCore.DataBase.SaveChanges();
+
+            GoBack();
+        }
 
         // TODO: проверять содержимое полей, если пусто - не показывать диалог
         private void CancelChanges(object sender, RoutedEventArgs e)
@@ -87,13 +99,6 @@ namespace ePharm.Pages
             GoBack();
         }
 
-        private void PageNavigated(object sender, NavigationEventArgs e)
-        {
-            DrugsEditingPage page = e.Content as DrugsEditingPage;
-            page.LoadDrugsCollection();
-            (sender as Frame).NavigationService.Navigated -= PageNavigated;
-        }
-
         private bool ValidateData()
         {
             StringBuilder warnings = new StringBuilder();
@@ -113,22 +118,17 @@ namespace ePharm.Pages
             return true;
         }
 
-        private void DeleteItem(object sender, MouseButtonEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Вы хотите удалить данный элемент? Данное действие невозможно отменить!", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result != MessageBoxResult.Yes) return;
-
-            SourceCore.DataBase.drugs.Remove(_drug);
-            SourceCore.DataBase.Entry(_drug).State = EntityState.Deleted;
-            SourceCore.DataBase.SaveChanges();
-
-            GoBack();
-        }
-
         private void GoBack()
         {
             NavigationService.Navigated += PageNavigated;
             NavigationService.GoBack();
+        }
+
+        private void PageNavigated(object sender, NavigationEventArgs e)
+        {
+            DrugsEditingPage page = e.Content as DrugsEditingPage;
+            page.LoadDrugsCollection();
+            (sender as Frame).NavigationService.Navigated -= PageNavigated;
         }
     }
 }
