@@ -28,18 +28,12 @@
                             <Setter Property="Margin" Value="0,20,0,0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="169.99" x:Name="NewDrugGood"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="179.99"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #1" DrugPrice="129.99"/>
-                    <controls:DrugGoods DrugName="Прикол" DrugType="Тип #2" DrugPrice="289.99"/>
                 </StackPanel>
             </ScrollViewer>
 
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Border CornerRadius="16" Width="160" Height="42" Background="{StaticResource Orange}">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Border CornerRadius="16" MinWidth="160" Height="42" Background="{StaticResource Orange}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="8,0">
                         <StackPanel.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="FontSize" Value="18"/>
@@ -47,7 +41,7 @@
                             </Style>
                         </StackPanel.Resources>
                         <TextBlock Text="Сумма: "/>
-                        <TextBlock Text="396.6" x:Name="PriceTextBlock"/>
+                        <TextBlock Text="0" x:Name="PriceTextBlock"/>
                         <TextBlock Text="₽"/>
                     </StackPanel>
                 </Border>

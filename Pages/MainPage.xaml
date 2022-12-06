@@ -55,22 +55,22 @@
 
                 <!--Random drugs-->
                 <StackPanel Margin="24,8,24,24">
-                    <TextBlock Text="Сегодня покупают" FontSize="20" Margin="0,0,0,9"/>
+                    <TextBlock FontSize="20" Margin="0,0,0,9" x:Name="SuggestedDrugTypeTextBlock"/>
 
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="OnMouseWheel">
-                        <StackPanel Height="192" Orientation="Horizontal">
+                        <StackPanel Height="192" Orientation="Horizontal" x:Name="TodayDrugSellsCollection">
                             <StackPanel.Resources>
                                 <Style TargetType="controls:DrugSquare">
                                     <Setter Property="Margin" Value="0,0,16,0"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <controls:DrugSquare DrugType="Тип #1"/>
+                            <!--<controls:DrugSquare DrugType="Тип #1"/>
                             <controls:DrugSquare DrugName="Препарат #2" DrugType="Тип #2"/>
                             <controls:DrugSquare DrugName="Препарат #3" DrugType="Тип #2"/>
                             <controls:DrugSquare DrugName="Препарат #4" DrugType="Тип #1"/>
                             <controls:DrugSquare DrugName="Препарат #5" DrugType="Тип #1"/>
                             <controls:DrugSquare DrugName="Препарат #6" DrugType="Тип #3"/>
-                            <controls:DrugSquare DrugName="Препарат #7" DrugType="Тип #4"/>
+                            <controls:DrugSquare DrugName="Препарат #7" DrugType="Тип #4"/>-->
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>

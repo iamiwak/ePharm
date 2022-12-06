@@ -6,7 +6,7 @@ namespace ePharm.UserControls
 {
     public partial class DrugSquare : UserControl
     {
-        public delegate void ClickHandler(DrugGoods sender);
+        public delegate void ClickHandler(DrugSquare sender);
         public event ClickHandler OnClick;
 
         public DrugSquare() => InitializeComponent();
@@ -59,13 +59,7 @@ namespace ePharm.UserControls
 
         private static void OnDrugNeededPrescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugNeededPrescriptionChanged(e);
 
-        private void OnDrugNeededPrescriptionChanged(DependencyPropertyChangedEventArgs e)
-        {
-            string newName = e.NewValue.ToString();
-            DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
-
-            DrugSquarePrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
-        }
+        private void OnDrugNeededPrescriptionChanged(DependencyPropertyChangedEventArgs e) => DrugSquarePrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -80,5 +74,7 @@ namespace ePharm.UserControls
             DrugNameTextBlock.FontSize = 14;
             DrugTypeTextBlock.FontSize = 12;
         }
+
+        private void OnDrugSquareClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => OnClick?.Invoke(this);
     }
 }

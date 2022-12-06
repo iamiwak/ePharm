@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="96" d:DesignWidth="384">
+             d:DesignHeight="96" d:DesignWidth="384" PreviewMouseDown="OnDrugGoodsClick">
     <Grid>
         <Border Width="384" Height="96"  CornerRadius="16" Background="{StaticResource Element}"/>
 
@@ -18,10 +18,21 @@
             <StackPanel Margin="16,0,0,0">
                 <StackPanel Orientation="Horizontal" Margin="0,8,0,32">
                     <TextBlock Text="Название препарата" FontSize="20" x:Name="DrugNameTextBlock"/>
-                    <Image Source="/Images/red_danger_icon.png" Margin="8,4,0,0" Width="16" Height="16" Visibility="Hidden" x:Name="DrugGoodsPrescriptionSign"/>
+                    <Image Source="/Images/red_danger_icon.png" Margin="8,4,0,0" Width="16" Height="16" Visibility="Collapsed" x:Name="DrugGoodsPrescriptionSign"/>
                 </StackPanel>
                 <TextBlock Text="Тип препарата" FontSize="16" x:Name="DrugTypeTextBlock"/>
             </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed" Margin="0,12,16,0"
+                    x:Name="CountPanel">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="x"/>
+            <TextBlock Text="5" x:Name="DrugCountTextBlock"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,8">

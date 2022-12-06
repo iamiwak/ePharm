@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +16,7 @@ namespace ePharm.Pages
         public DrugsEditingPage()
         {
             InitializeComponent();
-            //LoadDrugsCollection();
+            LoadDrugsCollection();
         }
 
         public void LoadDrugsCollection()

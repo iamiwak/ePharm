@@ -50,8 +50,7 @@ namespace ePharm.UserControls
             DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
         }
 
-
-        public decimal DrugPrice
+        public decimal DrugCost
         {
             get { return (decimal)GetValue(DrugPriceProperty); }
             set { SetValue(DrugPriceProperty, value); }
@@ -80,5 +79,31 @@ namespace ePharm.UserControls
             //DrugImage.Text = e.NewValue.ToString();
             //(DrugImageBorder.Background as ImageBrush).ImageSource = 
         }
+
+        public int DrugCount
+        {
+            get { return (int)GetValue(DrugCountProperty); }
+            set { SetValue(DrugCountProperty, value); }
+        }
+
+        public static readonly DependencyProperty DrugCountProperty =
+            DependencyProperty.Register("DrugCount", typeof(int), typeof(DrugGoods), new PropertyMetadata(1, OnDrugCountChanged));
+
+        private static void OnDrugCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugGoods).OnDrugCountChanged(e);
+
+        private void OnDrugCountChanged(DependencyPropertyChangedEventArgs e)
+        {
+            int value = (int)e.NewValue;
+            if (value <= 1)
+            {
+                CountPanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            CountPanel.Visibility = Visibility.Visible;
+            DrugCountTextBlock.Text = value.ToString();
+        }
+
+        private void OnDrugGoodsClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => OnClick?.Invoke(this);
     }
 }

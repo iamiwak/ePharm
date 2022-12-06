@@ -20,12 +20,12 @@ namespace ePharm
                 //MessageBox.Show("Вы зашли не под пользователем!");
                 user = new users
                 {
-                    id = 1000,
+                    id = 1,
                     mail = "guest@mail.ru",
                     password = "123",
                     name = "Guest",
                     family = "Guests'",
-                    balance = 1000m,
+                    balance = 10000m,
                     isAdmin = true,
                 };
             }
