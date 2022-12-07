@@ -11,13 +11,7 @@ namespace ePharm.Windows
 {
     public partial class Registration : Window
     {
-        private ePharmEntities _db;
-
-        public Registration()
-        {
-            InitializeComponent();
-            _db = SourceCore.DataBase;
-        }
+        public Registration() => InitializeComponent();
 
         private void GoToAuthorization(object sender, MouseButtonEventArgs e)
         {
@@ -41,7 +35,7 @@ namespace ePharm.Windows
 
             string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#~!%*?&])[A-Za-z\d@$!%#~*?&]{8,}$";
 
-            if (_db.users.SingleOrDefault(u => u.mail == login) != null)
+            if (SourceCore.DataBase.users.SingleOrDefault(u => u.mail == login) != null)
             {
                 MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -69,10 +63,10 @@ namespace ePharm.Windows
                 family = family
             };
 
-            _db.users.Add(user);
+            SourceCore.DataBase.users.Add(user);
             try
             {
-                _db.SaveChanges();
+                SourceCore.DataBase.SaveChanges();
                 new Main(user).Show();
                 Close();
             }

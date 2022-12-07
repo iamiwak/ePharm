@@ -4,7 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.IO;
+using System.Diagnostics;
 
 namespace ePharm.Pages
 {
@@ -25,10 +28,10 @@ namespace ePharm.Pages
 
         private void LoadData()
         {
-            // TODO: LOAD DRUG IMAGE
             DrugName.Text = _drug.name;
             DrugCost.Text = _drug.cost.ToString();
             DrugType.Text = _drug.drugTypes.name;
+            DrugImage.ImageSource = new ImageConverter().ConvertToImage(_drug.image);
             DrugPrescription.Visibility = _drug.isNeedPrescription ? Visibility.Visible : Visibility.Hidden;
         }
 

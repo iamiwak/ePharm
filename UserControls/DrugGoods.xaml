@@ -11,7 +11,7 @@
         <StackPanel Orientation="Horizontal">
             <Border Width="80" Height="80" CornerRadius="16" HorizontalAlignment="Left" Margin="8,8,0,8" x:Name="DrugImageBorder">
                 <Border.Background>
-                    <ImageBrush Stretch="Fill" ImageSource="../Images/avatar_ex.png"/>
+                    <ImageBrush Stretch="Fill" x:Name="DrugImagePhoto"/>
                 </Border.Background>
             </Border>
 

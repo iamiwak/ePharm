@@ -8,13 +8,17 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Data.Entity;
 using ePharm.Base;
+using Microsoft.Win32;
+using System.IO;
 
 namespace ePharm.Pages
 {
     public partial class SingleDrugEditingPage : Page
     {
+        private string _lastBase64;
         private Regex _numbersRegex = new Regex("[^0-9,]+");
         private drugs _drug;
+        private ImageConverter converter = new ImageConverter();
 
         public SingleDrugEditingPage(drugs drug = null)
         {
@@ -23,6 +27,7 @@ namespace ePharm.Pages
 
             DeleteItemButton.Visibility = Visibility.Visible;
             DrugType.ItemsSource = SourceCore.DataBase.drugTypes.ToList();
+
             UpdateData();
         }
 
@@ -38,7 +43,7 @@ namespace ePharm.Pages
             DrugCost.Text = _drug.cost.ToString();
             DrugType.Text = _drug.drugTypes.name;
             IsDrugNeedPrescription.IsChecked = _drug.isNeedPrescription;
-            DrugImage.Text = _drug.image?.ToString();
+            DrugImage.Source = converter.ConvertToImage(_drug.image);
         }
 
         private void ApplyChanges(object sender, RoutedEventArgs e) => SaveData();
@@ -79,8 +84,6 @@ namespace ePharm.Pages
 
         private void SaveData()
         {
-            //TODO:
-            // 3. Изменить TextBox'ы на нужные объекты (image!)
             if (!ValidateData()) return;
 
             decimal.TryParse(DrugCost.Text, out decimal cost);
@@ -90,6 +93,7 @@ namespace ePharm.Pages
             drug.cost = cost;
             drug.typeId = (DrugType.SelectedItem as drugTypes).id;
             drug.drugTypes = DrugType.SelectedItem as drugTypes;
+            drug.image = _lastBase64;
             drug.isNeedPrescription = IsDrugNeedPrescription.IsChecked ?? false;
 
             if (_drug is null) SourceCore.DataBase.drugs.Add(drug);
@@ -129,6 +133,27 @@ namespace ePharm.Pages
             DrugsEditingPage page = e.Content as DrugsEditingPage;
             page.LoadDrugsCollection();
             (sender as Frame).NavigationService.Navigated -= PageNavigated;
+        }
+
+        private void OnImageClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Фотографии (*.png)|*.png";
+            ofd.Title = "Выбор фотографии";
+            ofd.InitialDirectory = @"D:\4is2\timofeev\images";
+
+
+            if (ofd.ShowDialog() == true)
+            {
+                if (!File.Exists(ofd.FileName))
+                {
+                    MessageBox.Show("Файл не существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                _lastBase64 = converter.ConvertToBase64(ofd.FileName);
+                DrugImage.Source = converter.ConvertToImage(_lastBase64);
+            }
         }
     }
 }

@@ -11,39 +11,18 @@ namespace ePharm.Windows
 {
     public partial class Authorization : Window
     {
-        private ePharmEntities _db;
-
-        public Authorization()
-        {
-            InitializeComponent();
-            try
-            {
-                _db = SourceCore.DataBase;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Не удалось подключиться к базе данных из-за непредвиденной ошибки.\n\nОшибка: {e.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-            }
-        }
+        public Authorization() => InitializeComponent();
 
         private void AuthorizeUser(string login, string pass)
         {
-            // TOOD: Добавить галочку <подключение без базы>
             if (string.IsNullOrWhiteSpace(login) ||
                 string.IsNullOrWhiteSpace(pass))
             {
-                if (login == "guest")
-                {
-                    new Main().Show();
-                    Close();
-                    return;
-                }
                 MessageBox.Show("Вам нужно заполнить все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            users user = _db.users.SingleOrDefault(u => u.mail == login && u.password == pass);
+            users user = SourceCore.DataBase.users.SingleOrDefault(u => u.mail == login && u.password == pass);
 
             if (user is null)
             {
@@ -54,7 +33,7 @@ namespace ePharm.Windows
             new Main(user).Show();
             Close();
         }
-        
+
         private void GoToRegistration(object sender, MouseButtonEventArgs e)
         {
             new Registration().Show();

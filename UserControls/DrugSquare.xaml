@@ -8,8 +8,12 @@
     <Grid>
         <Border Width="192" Height="192"  CornerRadius="32" Background="{StaticResource Element}" x:Name="DrugBorder"/>
         <StackPanel VerticalAlignment="Top" Margin="0,16,0,0">
-            <Ellipse Width="96" Height="96" Fill="Purple" x:Name="DrugImage"/>
-            <Image Source="/Images/red_danger_icon.png" Margin="80,-16,0,0" Width="16" Height="16" Visibility="Hidden" x:Name="DrugSquarePrescriptionSign"/>
+            <Ellipse Width="96" Height="96" x:Name="DrugImageEllipse">
+                <Ellipse.Fill>
+                    <ImageBrush x:Name="DrugImagePhoto"/>
+                </Ellipse.Fill>
+            </Ellipse>
+                <Image Source="/Images/red_danger_icon.png" Margin="80,-16,0,0" Width="16" Height="16" Visibility="Hidden" x:Name="DrugSquarePrescriptionSign"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,16">
             <TextBlock Text="Название препарата" HorizontalAlignment="Center" FontSize="18" x:Name="DrugNameTextBlock"/>

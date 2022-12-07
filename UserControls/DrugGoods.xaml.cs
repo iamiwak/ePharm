@@ -1,5 +1,6 @@
 ﻿using ePharm.Pages;
 using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -32,7 +33,6 @@ namespace ePharm.UserControls
             DrugNameTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
         }
 
-
         public string DrugType
         {
             get { return (string)GetValue(DrugTypeProperty); }
@@ -63,6 +63,19 @@ namespace ePharm.UserControls
 
         private void OnDrugPriceChanged(DependencyPropertyChangedEventArgs e) => DrugPriceTextBlock.Text = e.NewValue.ToString();
 
+        public bool IsDrugNeedPrescription
+        {
+            get { return (bool)GetValue(IsDrugNeedPrescriptionProperty); }
+            set { SetValue(IsDrugNeedPrescriptionProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsDrugNeedPrescriptionProperty =
+            DependencyProperty.Register("IsDrugNeedPrescription", typeof(bool), typeof(DrugGoods), new PropertyMetadata(false, OnDrugNeedPrescriptionChanged));
+
+        private static void OnDrugNeedPrescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugGoods).OnDrugNeedPrescriptionChanged(e);
+
+        private void OnDrugNeedPrescriptionChanged(DependencyPropertyChangedEventArgs e) => DrugGoodsPrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Collapsed;
+
         public string DrugImage
         {
             get { return (string)GetValue(DrugImageProperty); }
@@ -70,15 +83,11 @@ namespace ePharm.UserControls
         }
 
         public static readonly DependencyProperty DrugImageProperty =
-            DependencyProperty.Register("DrugImage", typeof(string), typeof(DrugGoods), new PropertyMetadata("../Images/avatar_ex.png", OnDrugImageChanged));
+            DependencyProperty.Register("DrugImage", typeof(string), typeof(DrugGoods), new PropertyMetadata("NO_AVALIABLE", OnDrugImageChanged));
 
         private static void OnDrugImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugGoods).OnDrugImageChanged(e);
 
-        private void OnDrugImageChanged(DependencyPropertyChangedEventArgs e)
-        {
-            //DrugImage.Text = e.NewValue.ToString();
-            //(DrugImageBorder.Background as ImageBrush).ImageSource = 
-        }
+        private void OnDrugImageChanged(DependencyPropertyChangedEventArgs e) => DrugImagePhoto.ImageSource = new ImageConverter().ConvertToImage(e.NewValue.ToString());
 
         public int DrugCount
         {

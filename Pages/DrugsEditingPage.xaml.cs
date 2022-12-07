@@ -32,8 +32,8 @@ namespace ePharm.Pages
                     DrugId = _drugs[i].id,
                     DrugName = _drugs[i].name,
                     DrugType = _drugs[i].drugTypes.name,
+                    DrugImage = _drugs[i].image,
                     IsDrugNeedPrescription = _drugs[i].isNeedPrescription
-                    //DrugImage = _drugs[i].image
                 });
             }
         }

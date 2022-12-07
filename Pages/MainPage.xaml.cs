@@ -36,16 +36,33 @@ namespace ePharm.Pages
         {
             string text = (sender as TextBox).Text;
             MainStackPanel.Visibility = Visibility.Visible;
+            SearchStackPanel.Visibility = Visibility.Collapsed;
             if (text.Length < 3) return;
 
-            Debug.WriteLine(text);
+            SearchStackPanel.Visibility = Visibility.Visible;
             MainStackPanel.Visibility = Visibility.Collapsed;
-            // Make search...
+            SearchHintTextBlock.Visibility = Visibility.Hidden;
+
+            if (DrugsCollection.Children.Count > 0)
+                DrugsCollection.Children.RemoveRange(0, DrugsCollection.Children.Count);
+
+            List<drugs> drugs = SourceCore.DataBase.drugs.Where(d => d.name.Contains(text)).ToList();
+            foreach (drugs drug in drugs)
+            {
+                DrugsCollection.Children.Add(new DrugSquare
+                {
+                    DrugId = drug.id,
+                    DrugName = drug.name,
+                    DrugType = drug.drugTypes.name,
+                    DrugImage = drug.image,
+                    IsDrugNeedPrescription = drug.isNeedPrescription
+                });
+            }
         }
 
-        private void HideHintText(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = Visibility.Collapsed;
+        private void OnSearchBarGetFocus(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = Visibility.Collapsed;
 
-        private void AddHintText(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = Visibility.Visible;
+        private void OnSearchBarLostFocus(object sender, RoutedEventArgs e) => SearchHintTextBlock.Visibility = SearchBarTextBox.Text.Length == 0 ? Visibility.Visible : Visibility.Hidden;
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -56,10 +73,12 @@ namespace ePharm.Pages
         private void SlideItemToLeft(object sender, MouseButtonEventArgs e)
         {
             _currentDrugItem--;
+            RightArrowSlider.Opacity = 1;
             if (_currentDrugItem <= 0)
             {
                 _currentDrugItem = 0;
                 LeftItem.Visibility = Visibility.Collapsed;
+                LeftArrowSlider.Opacity = 0.1;
             }
             else LeftItem.Visibility = Visibility.Visible;
             RightItem.Visibility = Visibility.Visible;
@@ -74,10 +93,12 @@ namespace ePharm.Pages
         private void SlideItemToRight(object sender, MouseButtonEventArgs e)
         {
             _currentDrugItem++;
+            LeftArrowSlider.Opacity = 1;
             if (_currentDrugItem >= RANDOM_DRUG_COMPILATION_COUNT - 1)
             {
                 _currentDrugItem = RANDOM_DRUG_COMPILATION_COUNT - 1;
                 RightItem.Visibility = Visibility.Collapsed;
+                RightArrowSlider.Opacity = 0.1;
             }
             else RightItem.Visibility = Visibility.Visible;
 
@@ -104,7 +125,6 @@ namespace ePharm.Pages
         private void LoadSlider()
         {
             _sliderDrugs = new ObservableCollection<drugs>();
-                //(SourceCore.DataBase.drugs.Where(d => d.id <= 5).ToList());
 
             List<int> values = new List<int>();
             Random random = new Random();
@@ -129,6 +149,7 @@ namespace ePharm.Pages
             banner.DrugId = drug.id;
             banner.DrugName = drug.name;
             banner.DrugType = drug.drugTypes.name;
+            banner.DrugImage = drug.image;
             banner.IsDrugNeedPrescription = drug.isNeedPrescription;
         }
 
@@ -154,6 +175,7 @@ namespace ePharm.Pages
                     DrugId = drug.id,
                     DrugName = drug.name,
                     DrugType = drug.drugTypes.name,
+                    DrugImage = drug.image,
                     IsDrugNeedPrescription = drug.isNeedPrescription
                 };
 
@@ -165,6 +187,13 @@ namespace ePharm.Pages
         private void OnDrugClick(DrugSquare sender)
         {
             drugs drug = SourceCore.DataBase.drugs.First(d => d.id == sender.DrugId);
+            NavigationService.Navigate(new DrugInfo(drug));
+        }
+
+        private void OnSearchDrugClick(object sender, MouseButtonEventArgs e)
+        {
+            int drugid = (e.Source as DrugSquare).DrugId;
+            drugs drug = SourceCore.DataBase.drugs.First(d => d.id == drugid);
             NavigationService.Navigate(new DrugInfo(drug));
         }
     }

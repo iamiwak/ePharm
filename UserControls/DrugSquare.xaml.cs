@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -48,6 +49,20 @@ namespace ePharm.UserControls
             DrugTypeTextBlock.Text = newName.Length < 12 ? newName : newName.Substring(0, newName.Length - 3) + "...";
         }
 
+        public string DrugImage
+        {
+            get { return (string)GetValue(DrugImageProperty); }
+            set { SetValue(DrugImageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DrugImage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DrugImageProperty =
+            DependencyProperty.Register("DrugImage", typeof(string), typeof(DrugSquare), new PropertyMetadata("NO_AVALIABLE", OnDrugImageChanged));
+
+        private static void OnDrugImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugImageChanged(e);
+
+        private void OnDrugImageChanged(DependencyPropertyChangedEventArgs e) => DrugImagePhoto.ImageSource = new ImageConverter().ConvertToImage(e.NewValue.ToString());
+
         public bool IsDrugNeedPrescription
         {
             get { return (bool)GetValue(IsDrugNeedPrescriptionProperty); }
@@ -59,7 +74,7 @@ namespace ePharm.UserControls
 
         private static void OnDrugNeededPrescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugNeededPrescriptionChanged(e);
 
-        private void OnDrugNeededPrescriptionChanged(DependencyPropertyChangedEventArgs e) => DrugSquarePrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Hidden;
+        private void OnDrugNeededPrescriptionChanged(DependencyPropertyChangedEventArgs e) => DrugSquarePrescriptionSign.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Collapsed;
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -69,8 +84,8 @@ namespace ePharm.UserControls
 
             DrugBorder.Width = 160;
             DrugBorder.Height = 160;
-            DrugImage.Width = 80;
-            DrugImage.Height = 80;
+            DrugImageEllipse.Width = 80;
+            DrugImageEllipse.Height = 80;
             DrugNameTextBlock.FontSize = 14;
             DrugTypeTextBlock.FontSize = 12;
         }

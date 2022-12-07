@@ -10,33 +10,32 @@
     
     <!--TODO:
     1. Сделать поиск
-    2. Выборка товаров из базы
     -->
     
     <Grid Background="{StaticResource Background}">
-        <StackPanel Background="{StaticResource Background}">
-            <StackPanel Margin="64,24">
+        <DockPanel Background="{StaticResource Background}">
+            <StackPanel DockPanel.Dock="Top" Margin="64,24">
                 <TextBox Height="48" FontSize="18" VerticalContentAlignment="Center" Style="{StaticResource SearchBar}"
-                         TextChanged="MakeSearch" LostFocus="AddHintText" GotFocus="HideHintText" x:Name="SearchBarTextBox"/>
-                <Image Source="/Images/search_icon.png" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,-48,24,0"/>
+                         TextChanged="MakeSearch" LostFocus="OnSearchBarLostFocus" GotFocus="OnSearchBarGetFocus" x:Name="SearchBarTextBox"/>
+                <Image Source="/Images/search_icon.png" Width="24" Height="24" HorizontalAlignment="Right" Margin="0,-48,24,0" IsHitTestVisible="False"/>
                 <TextBlock Margin="24,-36,0,0" Text="Энергоферон..." FontSize="18" Foreground="{StaticResource DarkGray}" Visibility="Visible"
                            HorizontalAlignment="Left" Width="auto" IsHitTestVisible="False"
                            x:Name="SearchHintTextBlock"/>
             </StackPanel>
 
-            <StackPanel x:Name="MainStackPanel">
+            <StackPanel DockPanel.Dock="Top" Visibility="Visible" x:Name="MainStackPanel">
                 <!--Slider (popular)-->
                 <StackPanel Width="288">
                     <TextBlock Text="Случайная подборка" HorizontalAlignment="Center" FontSize="20"/>
                     
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="16" Height="16" Source="/Images/left_arrow_icon.png" MouseLeftButtonDown="SlideItemToLeft"/>
+                        <Image Width="16" Height="16" Source="/Images/left_arrow_icon.png" MouseLeftButtonDown="SlideItemToLeft" Opacity="0.1" x:Name="LeftArrowSlider"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="8,8,8,0">
-                            <controls:DrugSquare Panel.ZIndex="1" Margin="24,0" x:Name="CenterItem"/>
+                            <controls:DrugSquare Panel.ZIndex="1" Margin="24,0" x:Name="CenterItem" OnClick="OnDrugClick"/>
                             <controls:DrugSquare Panel.ZIndex="0" Margin="-320,0,0,0" Opacity="0.5" Width="160" Height="160" Visibility="Collapsed" x:Name="LeftItem"/>
                             <controls:DrugSquare Panel.ZIndex="0" Margin="-160,0,0,0" Opacity="0.5" Width="160" Height="160" x:Name="RightItem"/>
                         </StackPanel>
-                        <Image Width="16" Height="16" Source="/Images/right_arrow_icon.png" MouseLeftButtonDown="SlideItemToRight"/>
+                        <Image Width="16" Height="16" Source="/Images/right_arrow_icon.png" MouseLeftButtonDown="SlideItemToRight" x:Name="RightArrowSlider"/>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Center" x:Name="DotsStackPanel">
@@ -75,6 +74,17 @@
                     </ScrollViewer>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+
+            <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,16" Visibility="Collapsed" x:Name="SearchStackPanel">
+                <WrapPanel VerticalAlignment="Top" Orientation="Horizontal"
+                           x:Name="DrugsCollection" PreviewMouseDown="OnSearchDrugClick">
+                    <WrapPanel.Resources>
+                        <Style TargetType="{x:Type controls:DrugSquare}">
+                            <Setter Property="Margin" Value="33,16,0,0"/>
+                        </Style>
+                    </WrapPanel.Resources>
+                </WrapPanel>
+            </ScrollViewer>
+        </DockPanel>
     </Grid>
 </Page>

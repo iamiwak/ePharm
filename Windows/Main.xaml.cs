@@ -11,29 +11,13 @@ namespace ePharm
     {
         private string _currentPageName = "HomeStackPanel";
 
-        public Main(users user = null)
+        public Main(users user)
         {
             InitializeComponent();
-            if (user == null)
-            {
-                // TODO: Расскомменитровать, когда потребуется
-                //MessageBox.Show("Вы зашли не под пользователем!");
-                user = new users
-                {
-                    id = 1,
-                    mail = "guest@mail.ru",
-                    password = "123",
-                    name = "Guest",
-                    family = "Guests'",
-                    balance = 10000m,
-                    isAdmin = true,
-                };
-            }
-
+            User.OnBalanceChanged += ChangeViewBalance;
             User.SetUserData(user);
 
             UserName.Text = User.Name;
-            UserBalance.Text = User.Balance.ToString();
 
             UserAdminTextBlock.Visibility = User.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
             AdminStackPanel.Visibility = User.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
@@ -41,6 +25,8 @@ namespace ePharm
 
             PagePlace.Content = new MainPage();
         }
+
+        private void ChangeViewBalance(decimal balance) => UserBalance.Text = balance.ToString();
 
         private void CloseWindow(object sender, MouseButtonEventArgs e) => Close();
 

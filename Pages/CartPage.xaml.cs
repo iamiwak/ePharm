@@ -6,6 +6,8 @@ using ePharm.Base;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System;
 
 namespace ePharm.Pages
 {
@@ -27,7 +29,7 @@ namespace ePharm.Pages
             List<int> indexes = SourceCore.DataBase.usersCart.Where(uc => uc.userId == User.Id).Select(uc => uc.drugId).ToList(); // Get drug ids
             Dictionary<drugs, int> drugs = new Dictionary<drugs, int>();
 
-            foreach(int idx in indexes)
+            foreach (int idx in indexes)
             {
                 drugs drug = SourceCore.DataBase.drugs.First(d => d.id == idx);
                 if (drugs.ContainsKey(drug)) drugs[drug]++;
@@ -44,6 +46,8 @@ namespace ePharm.Pages
                     DrugName = drug.name,
                     DrugCost = drug.cost,
                     DrugType = drug.drugTypes.name,
+                    IsDrugNeedPrescription = drug.isNeedPrescription,
+                    DrugImage = drug.image,
                     DrugCount = item.Value
                 };
                 dg.OnClick += OnDrugClick;
@@ -66,10 +70,39 @@ namespace ePharm.Pages
             if (result != MessageBoxResult.Yes) return;
 
             // Check if cart have drugs with prescriptions
+            foreach (DrugGoods item in DrugsCartCollection.Children)
+            {
+                if (!item.IsDrugNeedPrescription) continue;
+
+                MessageBox.Show($"{item.DrugName} имеет рецепт, данный препарат можно купить только в аптеке.\nУдалите данный препарат, чтобы продолжить покупку.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             // Check if user balance greater or equals cart sum
+            decimal price = decimal.Parse(PriceTextBlock.Text);
+            if (User.Balance < price)
+            {
+                MessageBox.Show("У Вас недостаточно средств для покупки!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            User.Balance = SourceCore.DataBase.users.First(u => u.id == User.Id).balance -= price;
 
             // Clear <usersCart>, add <sells>, subtract count <drugs>
+            List<usersCart> carts = SourceCore.DataBase.usersCart.Where(uc => uc.userId == User.Id).ToList();
+            foreach (usersCart cart in carts)
+            {
+                SourceCore.DataBase.usersCart.Remove(cart);
+                SourceCore.DataBase.Entry(cart).State = EntityState.Deleted;
+                SourceCore.DataBase.sells.Add(new sells
+                {
+                    userId = User.Id,
+                    drugId = cart.drugId,
+                    date = DateTime.Now
+                });
+            }
+
+            SourceCore.DataBase.SaveChanges();
+            LoadCart();
 
             MessageBox.Show("Благодарим за покупку!", "Спасибо", MessageBoxButton.OK, MessageBoxImage.Information);
         }

@@ -9,6 +9,11 @@ namespace ePharm
 {
     internal static class User
     {
+        public delegate void BalanceHandler(decimal balance);
+        public static event BalanceHandler OnBalanceChanged;
+
+        private static decimal _balance;
+
         public static int Id { get; set; }
 
         public static string Name { get; set; }
@@ -17,7 +22,15 @@ namespace ePharm
 
         public static string Mail { get; set; }
 
-        public static decimal Balance { get; set; }
+        public static decimal Balance
+        {
+            get => _balance;
+            set
+            {
+                _balance = value;
+                OnBalanceChanged?.Invoke(value);
+            }
+        }
 
         public static bool IsAdmin { get; set; }
 
