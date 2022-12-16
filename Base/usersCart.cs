@@ -20,5 +20,6 @@ namespace ePharm.Base
     
         public virtual drugTypes drugTypes { get; set; }
         public virtual users users { get; set; }
+        public virtual drugs drugs { get; set; }
     }
 }

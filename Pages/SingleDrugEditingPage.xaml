@@ -44,8 +44,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Тип препарата: "/>
+                    <TextBlock Text="Тип: "/>
                     <ComboBox Width="256" Height="32" DisplayMemberPath="name" Style="{StaticResource StandartComboBox}" x:Name="DrugType"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Описание: "/>
+                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Width="256" Height="56" x:Name="DrugDescription"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -54,11 +59,9 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Картинка: "/>
-                    <Image Width="256" PreviewMouseDown="OnImageClick" x:Name="DrugImage"/>
+                    <TextBlock Text="Картинка: " Width="214"/>
+                    <Image Width="192" Height="192" PreviewMouseDown="OnImageClick" x:Name="DrugImage"/>
                 </StackPanel>
-
-                
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,24">

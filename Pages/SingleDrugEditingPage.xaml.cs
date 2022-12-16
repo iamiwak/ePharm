@@ -42,6 +42,7 @@ namespace ePharm.Pages
             DrugName.Text = _drug.name;
             DrugCost.Text = _drug.cost.ToString();
             DrugType.Text = _drug.drugTypes.name;
+            DrugDescription.Text = _drug.description;
             IsDrugNeedPrescription.IsChecked = _drug.isNeedPrescription;
             DrugImage.Source = converter.ConvertToImage(_drug.image);
         }
@@ -93,7 +94,8 @@ namespace ePharm.Pages
             drug.cost = cost;
             drug.typeId = (DrugType.SelectedItem as drugTypes).id;
             drug.drugTypes = DrugType.SelectedItem as drugTypes;
-            drug.image = _lastBase64;
+            drug.description = DrugDescription.Text;
+            if(_lastBase64 != null) drug.image = _lastBase64;
             drug.isNeedPrescription = IsDrugNeedPrescription.IsChecked ?? false;
 
             if (_drug is null) SourceCore.DataBase.drugs.Add(drug);

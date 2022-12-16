@@ -16,6 +16,8 @@
         <AssociationConnector Association="ePharmModel.FK_usersCart_drugTypes" ManuallyRouted="false" />
         <AssociationConnector Association="ePharmModel.FK_sells_users" ManuallyRouted="false" />
         <AssociationConnector Association="ePharmModel.FK_usersCart_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ePharmModel.FK_sells_drugTypes1" />
+        <AssociationConnector Association="ePharmModel.FK_usersCart_drugTypes1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

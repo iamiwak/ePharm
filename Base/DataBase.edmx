@@ -15,6 +15,7 @@
           <Property Name="typeId" Type="int" Nullable="false" />
           <Property Name="cost" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="image" Type="varchar(max)" />
+          <Property Name="description" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="drugTypes">
           <Key>
@@ -75,10 +76,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sells_drugTypes">
-          <End Role="drugTypes" Type="Self.drugTypes" Multiplicity="1" />
+          <End Role="drugs" Type="Self.drugs" Multiplicity="1" />
           <End Role="sells" Type="Self.sells" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="drugTypes">
+            <Principal Role="drugs">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="sells">
@@ -99,10 +100,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_usersCart_drugTypes">
-          <End Role="drugTypes" Type="Self.drugTypes" Multiplicity="1" />
+          <End Role="drugs" Type="Self.drugs" Multiplicity="1" />
           <End Role="usersCart" Type="Self.usersCart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="drugTypes">
+            <Principal Role="drugs">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="usersCart">
@@ -134,7 +135,7 @@
             <End Role="drugs" EntitySet="drugs" />
           </AssociationSet>
           <AssociationSet Name="FK_sells_drugTypes" Association="Self.FK_sells_drugTypes">
-            <End Role="drugTypes" EntitySet="drugTypes" />
+            <End Role="drugs" EntitySet="drugs" />
             <End Role="sells" EntitySet="sells" />
           </AssociationSet>
           <AssociationSet Name="FK_sells_users" Association="Self.FK_sells_users">
@@ -142,7 +143,7 @@
             <End Role="sells" EntitySet="sells" />
           </AssociationSet>
           <AssociationSet Name="FK_usersCart_drugTypes" Association="Self.FK_usersCart_drugTypes">
-            <End Role="drugTypes" EntitySet="drugTypes" />
+            <End Role="drugs" EntitySet="drugs" />
             <End Role="usersCart" EntitySet="usersCart" />
           </AssociationSet>
           <AssociationSet Name="FK_usersCart_users" Association="Self.FK_usersCart_users">
@@ -165,6 +166,9 @@
           <Property Name="cost" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="drugTypes" Relationship="Self.FK_drugs_drugTypes" FromRole="drugs" ToRole="drugTypes" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sells" Relationship="ePharmModel.FK_sells_drugTypes1" FromRole="drugs" ToRole="sells" />
+          <NavigationProperty Name="usersCart" Relationship="ePharmModel.FK_usersCart_drugTypes1" FromRole="drugs" ToRole="usersCart" />
         </EntityType>
         <EntityType Name="drugTypes">
           <Key>
@@ -186,6 +190,7 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="drugTypes" Relationship="Self.FK_sells_drugTypes" FromRole="sells" ToRole="drugTypes" />
           <NavigationProperty Name="users" Relationship="Self.FK_sells_users" FromRole="sells" ToRole="users" />
+          <NavigationProperty Name="drugs" Relationship="ePharmModel.FK_sells_drugTypes1" FromRole="sells" ToRole="drugs" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -220,6 +225,7 @@
           <Property Name="drugId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="drugTypes" Relationship="Self.FK_usersCart_drugTypes" FromRole="usersCart" ToRole="drugTypes" />
           <NavigationProperty Name="users" Relationship="Self.FK_usersCart_users" FromRole="usersCart" ToRole="users" />
+          <NavigationProperty Name="drugs" Relationship="ePharmModel.FK_usersCart_drugTypes1" FromRole="usersCart" ToRole="drugs" />
         </EntityType>
         <Association Name="FK_drugs_drugTypes">
           <End Role="drugTypes" Type="Self.drugTypes" Multiplicity="1" />
@@ -308,7 +314,39 @@
             <End Role="users" EntitySet="users" />
             <End Role="usersCart" EntitySet="usersCart" />
           </AssociationSet>
+          <AssociationSet Name="FK_sells_drugTypes1" Association="ePharmModel.FK_sells_drugTypes1">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="sells" EntitySet="sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usersCart_drugTypes1" Association="ePharmModel.FK_usersCart_drugTypes1">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="usersCart" EntitySet="usersCart" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_sells_drugTypes1">
+          <End Type="ePharmModel.drugs" Role="drugs" Multiplicity="1" />
+          <End Type="ePharmModel.sells" Role="sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sells">
+              <PropertyRef Name="drugId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usersCart_drugTypes1">
+          <End Type="ePharmModel.drugs" Role="drugs" Multiplicity="1" />
+          <End Type="ePharmModel.usersCart" Role="usersCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usersCart">
+              <PropertyRef Name="drugId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -318,6 +356,7 @@
           <EntitySetMapping Name="drugs">
             <EntityTypeMapping TypeName="ePharmModel.drugs">
               <MappingFragment StoreEntitySet="drugs">
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="isNeedPrescription" ColumnName="isNeedPrescription" />

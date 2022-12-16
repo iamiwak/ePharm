@@ -31,6 +31,7 @@ namespace ePharm.Pages
             DrugName.Text = _drug.name;
             DrugCost.Text = _drug.cost.ToString();
             DrugType.Text = _drug.drugTypes.name;
+            DrugDescription.Text = $"Описание: {_drug.description}";
             DrugImage.ImageSource = new ImageConverter().ConvertToImage(_drug.image);
             DrugPrescription.Visibility = _drug.isNeedPrescription ? Visibility.Visible : Visibility.Hidden;
         }

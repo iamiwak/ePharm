@@ -55,13 +55,17 @@ namespace ePharm.UserControls
             set { SetValue(DrugImageProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for DrugImage.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DrugImageProperty =
             DependencyProperty.Register("DrugImage", typeof(string), typeof(DrugSquare), new PropertyMetadata("NO_AVALIABLE", OnDrugImageChanged));
 
         private static void OnDrugImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as DrugSquare).OnDrugImageChanged(e);
 
-        private void OnDrugImageChanged(DependencyPropertyChangedEventArgs e) => DrugImagePhoto.ImageSource = new ImageConverter().ConvertToImage(e.NewValue.ToString());
+        private void OnDrugImageChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue == null) return;
+
+            DrugImagePhoto.ImageSource = new ImageConverter().ConvertToImage(e.NewValue.ToString());
+        }
 
         public bool IsDrugNeedPrescription
         {

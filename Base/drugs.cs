@@ -14,13 +14,25 @@ namespace ePharm.Base
     
     public partial class drugs
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public drugs()
+        {
+            this.sells = new HashSet<sells>();
+            this.usersCart = new HashSet<usersCart>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public bool isNeedPrescription { get; set; }
         public int typeId { get; set; }
         public decimal cost { get; set; }
         public string image { get; set; }
+        public string description { get; set; }
     
         public virtual drugTypes drugTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sells> sells { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usersCart> usersCart { get; set; }
     }
 }

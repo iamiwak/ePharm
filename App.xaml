@@ -20,7 +20,7 @@
 
         <Style x:Key="StandartTextBox" TargetType="{x:Type Control}">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="16,0,16,0"/>
+            <Setter Property="Padding" Value="16,8,16,8"/>
             <Setter Property="Background" Value="{StaticResource Element}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
